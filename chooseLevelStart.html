@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta content="charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<link rel="stylesheet" href="style.css">
+    <title>Interactive Electronics</title>
+
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+  </head>
+  <body>
+	
+	<nav id="menu">
+	</nav>
+
+
+	<div class="container w-50 borderInsideDiv shadowEffectLeftDiv backgroundMainDivColor rounded divTopMargin" style="border: solid;">
+		<h2 class="text-center divSmallMargin">Избери ниво</h2>
+		<div class="row justify-content-center text-center" >
+			
+			<div class="col-6 spaceBetweenButtons">
+				<button class="btn btn-info text-white buttonWidth" id="newGame">Начало на игра</button>
+			</div>
+			<div class="col-6 spaceBetweenButtons">
+				<p class="color">Започва играта от 1 ниво за новобранци</p>
+			</div>
+			<div class="col-6 spaceBetweenButtons" id="divContinueGame">
+				<button class="btn btn-info text-white buttonWidth" id="continueGame" onclick="showAllLevels()">Продължи игра</button>
+			</div>
+			<div class="col-6 spaceBetweenButtons">
+				<p class="color">Продължава играта от там докъдето сте стигнал</p>
+			</div>
+			<div class="col-6 spaceBetweenButtons">
+				<button class="btn btn-info text-white buttonWidth" id="createLevels">Създай нови нива</button>
+			</div>
+			<div class="col-6 spaceBetweenButtons">
+				<p class="color">Създаване на собствени нива в играта</p>
+			</div>
+		</div>
+		<div class="text-center spaceBetweenButtons">
+			<a class="btn buttonColorChange text-white " href="http://interactiveelectronics.eu/index.html" >Върни се</a>
+		</div>
+	</div>
+		
+  </body>
+  <script src="game.js"></script>
+  <script type="text/javascript" src="rightLoadImage.json"></script>
+  <script>
+		document.getElementById('newGame').onclick = function() {
+			setCookie(1);
+			window.location.href = "http://interactiveelectronics.eu/startLevels.html";			
+	  	}
+     	
+		document.getElementById('createLevels').onclick = function() {
+			window.location.href = "http://interactiveelectronics.eu/createLevels.html";
+	  	}
+  </script>
+	
+</html

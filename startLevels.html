@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta content="charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<link rel="stylesheet" href="style.css">
+    <title>Интерактивна Електроника</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  </head>
+  <body onload="loadLevel()">
+
+	<nav id="menu">
+	</nav>
+
+	<div class="container-fluid containerSize" >
+		<div class="row divSmallMargin">
+			<div class="col-md-8">
+			<h2 id="titleLevel"></h2>
+			<div class="background container">	
+				<div class="row shadowEffectLeftDiv" id="rowDraw">
+					<!--Рисува 12 div-а със снимките вътре-->
+				</div>
+			</div>
+		  </div>
+		  		  
+		  <div class="col-md-4 ">
+			<h5 >Използвайте следните електронни елементи</h5>
+				<div class="row backgroundImg shadowEffectLeftDiv" id="rowImg">
+					<!-- Рисува 6 div-a със снимки вътре, които после да се поставят на празните места -->
+				</div>		
+		  </div>
+			
+		</div>
+	</div>
+	<!--<div>
+		<button onclick="button6()">Natisni</button>
+	</div>-->
+	 </div>
+
+		
+	<div class="d-flex align-items-center justify-content-center divSmallMargin ">
+		<div class="p-3">
+			<a class="btn buttonColorChange text-white float-right spaceBetweenButtons" href="http://interactiveelectronics.eu/startLevels.html">Започни нивото от начало</a>
+		</div>
+		<div class="p-3">
+			<a class="btn buttonColorChange text-white spaceBetweenButtons" href="http://interactiveelectronics.eu/index.html">Основно меню</a>
+		</div>
+		<div class="d-flex align-items-center p-3">
+			<!-- Модален бутон за задействане -->
+			<button type="button" class="btn buttonColorChange text-white float-right spaceBetweenButtons" data-toggle="modal" data-target="#exampleModal" id="triggerModal" onclick="checkImg()">
+				Проверка
+			</button>
+			
+		</div>
+		
+
+	</div>
+    
+	<!-- Модал при начало на ниво-->
+	<div id="openingLevelModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel"></h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			<div class="modal-body" id="textOpeningLevelModalId">
+			
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal">Продължи</button>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<!-- Модал при завършване на ниво-->
+	<div id="endingLevelModal"  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel"></h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			<div class="modal-body" id="textEndingLevelModalId">
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" id="toStartNextLevel">Продължи</button>
+			</div>
+		</div>
+		</div>
+	</div>
+
+		
+
+  </body>
+  	<script type="text/javascript" src="rightLoadImage.json"></script>
+	<script type="text/javascript" src="textLevel1.json"></script>
+	<script type="text/javascript" src="game.js"></script>
+  	<script>
+		textShow = JSON.parse(textLevelOne);
+		modalTitle[0].innerHTML = `Информация за ниво ` + getCookie();
+		textOpeningLevelModal.innerHTML = textShow[0];
+		$(document).ready(function(){
+			$("#openingLevelModal").modal('show');
+		});
+		console.log("------------------------------");
+	//	console.log("checkImg()="+checkImg());
+	//	if(checkImg()){
+	//		$('#triggerModal').on( "click", function() {
+	//				$('#endingLevelModal').modal('show');
+	//				console.log("Vliza v modal");
+	//		});
+	//	}
+	
+	
+
+	</script>
+
+
+</html

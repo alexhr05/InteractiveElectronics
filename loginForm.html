@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<link rel="stylesheet" href="style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<title>Интерактивна Електроника</title>
+</head>
+<body>
+	<nav id="menu">
+	</nav>
+		<div class="container py-5 h-100">
+		  <div class="row d-flex justify-content-center align-items-center h-100">
+			<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+
+
+
+				<div class="card backgroundMainDivColor text-white shadowEffectLeftDiv" style="border-radius: 1rem;">
+				<div class="noVisibilityOfElement divBigMargin" id="noVisibleDivLogIn">
+				</div>
+				<div class="card-body p-5 text-center" id="logInDiv">
+	  
+				 
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	<script src="game.js"></script>
+	<script>
+		console.log ("Прочита мейл от сесия : "+localStorage.getItem("email"));
+		if (localStorage.getItem("email") != null){
+			let email = localStorage.getItem("email");
+			console.log ("Има логнат потребител : "+email);
+			
+		//	let userName = localStorage.getItem("name");
+			$("#logInDiv").remove();
+			$("#noVisibleDivLogIn").html('<h5 class="inwardsLine"> Добър ден '+ email +', Вие се логнахте в Нашия сайт.</h5><br>');
+			$("#noVisibleDivLogIn").css("visibility", "visible");
+
+		}else{			
+			$("#logInDiv").html(` <div class="mb-md-5 mt-md-4 pb-2 ">
+					<h2 class="fw-bold mb-2 text-uppercase">Влизане</h2>
+					<p class="text-white mb-5 color h5">Моля въведете вашето име и парола!</p>
+
+					<div class="form-outline  mb-4 ">
+						<label class="form-label h5 float-left">Ел. поща:</label>
+						<input type="email" id="mailID1" class="form-control form-control-lg" placeholder="Електронна поща" />
+					  <p id="errorМessageEmail"></p>
+					</div>
+	  
+					<div class="form-outline  mb-4 ">
+						<label class="form-label h5 float-left">Парола:</label>
+						<input type="password" id="passID1" class="form-control form-control-lg"  placeholder="Парола"/>
+					  <p id="errorМessagePassword"></p>
+					</div>
+
+					<p class="small mb-3 pb-lg-2"><a class="text-white h5" href="http://interactiveelectronics.eu/forgottenPassword.html">Забравена парола?</a></p>
+					<button class="btn btn-outline-light btn-lg px-5 backgroundDivColorShadowMenu" onclick="logInInfo(1)" type="submit">Влизане</button>
+				  </div> 
+				  <div>
+					<p class="p-3 h6" id="678">Нямате акаунт? <a href="http://interactiveelectronics.eu/registrationForm.html" class="text-white">Регистрирай се</a></p>
+				  </div>`);
+				console.log("Трябва да се логнете тук.");
+
+
+
+
+
+
+		}	
+		
+	//	$("#noVisibleDivLogIn").html('<h5 class="inwardsLine"> Успешно влязохте с Вашия профил в сайта.</h5>');
+
+	</script>
+	
+</body>
+</html>

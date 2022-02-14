@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<link rel="stylesheet" href="style.css">
+
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+	
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	 <title>Интерактивна Електроника</title>
+	</head>
+	<body>
+		<nav id="menu">
+		</nav>	
+			<div class="mask d-flex align-items-center h-100 ">
+			<div class="container h-100">
+				<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-12 col-md-9 col-lg-7 col-xl-6 spaceBetweenButtons">
+					<div class="noVisibilityOfElement color backgroundMainDivColor shadowEffectLeftDiv rounded divBigMargin" id="noVisibleDivRegistration">
+						
+					</div>
+					<div class="card backgroundMainDivColor shadowEffectLeftDiv rounded " id="registrationDiv">
+					
+					<div class="card-body p-5 " >
+						<h3 class="text-uppercase text-center mb-5 text-white">Създаване на  акаунт</h3>
+		
+						<form>
+		
+						<div class="form-outline mb-4">
+							<label class="form-label text-white h5">Напишете вашето име:</label>
+							<input type="text" id="name" class="form-control form-control-lg backgroundColorInputBox" placeholder="Име"/>
+						</div>
+		
+						<div class="form-outline mb-4">
+							<label class="form-label text-white h5">Напишете вашата ел. поща:</label>
+							<input type="email" oninput="IsMatchingEmail()" id="idEmailX" class="form-control form-control-lg" placeholder="Ел. поща"/>
+							<p id="errorМessageEmail"></p>
+						</div>
+
+						<div class="form-outline mb-4">
+							<label class="form-label text-white h5">Повторете вашата ел. поща:</label>
+							<input type="text" oninput="IsMatchingEmail()" id="repeatEmail" class="form-control form-control-lg backgroundColorInputBox" placeholder="Повтори ел. поща"/>
+							<p id="errorМessageRepeatEmail"></p>
+						</div>
+		
+						<div class="form-outline mb-4">
+							<label class="form-label text-white h5">Напишете парола:</label>
+							<input type="password" oninput="IsMatchingPassword()" id="idPasswordX"  class="form-control form-control-lg" placeholder="Парола"/>
+							<p id="errorМessagePassword"></p>
+						</div>
+		
+						<div class="form-outline mb-4">
+							<label class="form-label text-white h5">Повторете парола:</label>
+							<input type="password"  id="repeatPassword" class="form-control form-control-lg backgroundColorInputBox" placeholder="Повтори парола" />
+							<p id="errorМessageRepeatPassword"></p>
+						</div>
+		
+						<div class="d-flex justify-content-center">
+							<button type="button" onclick="registrationInfo()" class="btn  btn-block btn-lg  text-white backgroundDivColorShadowMenu">Регистрация</button>
+						</div>
+		
+						<p class="text-center text-white mt-5 mb-0 h6"><a href="loginForm.html" class="text-white">Ако имате акаунт изберете този линк за вход</a></p>
+		
+						</form>
+		
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			</div>
+		<script type="text/javascript" src="game.js"></script>
+	</body>
+</html>
