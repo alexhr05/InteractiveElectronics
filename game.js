@@ -33,7 +33,6 @@ let textShow;
 let currentTime = Date.now();
 if (sessionStorage.getItem("logInTime") != null) {	
 	if (currentTime - sessionStorage.getItem("logInTime") >= 60000*60) {// След 60 мин ще разглогне
-		console.log("logOUT xxxxxxxx");
 		logOut();
 	}	
 
@@ -52,7 +51,7 @@ xhttp.send();
 // Край на заявка за проверка колко нива има въведени до момента
 
 
-$("#menu").addClass("navbar navbar-expand-lg");	// //backgroundDivColorShadowMenu
+$("#menu").addClass("navbar navbar-expand-lg");	
 let menuNavElement = document.getElementById("menu");
 menuNavElement.innerHTML = `
         <div class="container ">
@@ -89,7 +88,6 @@ if (sessionStorage.getItem("email") != null) {		// Допълнително за
 	$("#buttonR1").remove();
 	$("#buttonR2").remove();
 } else {	
-	console.log("НЕ ЛОГНАТ");
 	$("#buttonR3").remove();
 	$("#buttonR4").remove();
 }	
@@ -111,22 +109,17 @@ function drop(ev,mode) {
 	var dragId = ev.dataTransfer.getData("text");
 
 	divId = ev.target.id;
-	console.log("divId=="+divId);
-	console.log("dragId =="+dragId);
 
 	let indexLastCharacterOfdivId = divId.charAt(divId.length - 1);
 	if (divId.charAt(divId.length - 2)>=0 && divId.charAt(divId.length - 2)<=10) {
 		indexLastCharacterOfdivId = divId.charAt(divId.length - 2)+divId.charAt(divId.length - 1);
 	}
-	console.log("indexLastCharacterOfdivId="+indexLastCharacterOfdivId);
 		
 	var newNode = document.getElementById(dragId).cloneNode(true);
 	clearChildren(ev.target);
 	ev.target.appendChild(newNode);
 	if (mode == 'edit') {
-		console.log("Vliza v edit Mode");
 		newNode.id = "leftImg"+indexLastCharacterOfdivId;
-		console.log("newNode.id="+newNode.id);
 
 		$("#"+newNode.id).addClass("image-checkbox");
 		$("#"+newNode.id).removeClass("borderBetweenColumns");
@@ -187,9 +180,7 @@ function checkLevel() {
 				let fnc = 'UPDATE `users`  SET userExperienceLevel='+currentLevel+' where `mail`=&userMailIs=' +  textCrypto( sessionStorage.getItem("email") );
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						console.log("Успешно е направен update в базата данни за нивото на потребителя. Ново максимално ниво="+currentLevel);
-					}
+
 				}
 				xhttp.open("GET","php_query.php?q="+fnc,true);
 				xhttp.send();
@@ -197,7 +188,6 @@ function checkLevel() {
 		}
 
 	} else {
-		// XXX Да се смени с МОДАЛ
 		alert("Не уцелихте някои от електронните компоненти.");
 		location.reload();
 	}
@@ -212,7 +202,6 @@ function showCorrectImages(){
 function showLevel() {
 	let allElementsShow = document.querySelectorAll(".noShowingDivLevel");
 	let allElementsHidden = document.querySelectorAll(".ShowingDivLevel");
-	//console.log("allElementsShow="+allElementsShow);
 	for(let i = 0; i < allElementsShow.length; i++) {
 		allElementsShow[i].style.visibility  = "visible";
 	}
@@ -229,14 +218,12 @@ function createLeftDivs(mode) {
 	let cond;
 	if (mode == 'edit') {
 		for(var i = 0; i < maxDiv; i++) {
-			console.log("i="+i);
 			
 			cond = document.getElementById('leftImg'+i) || false ;
 			if (cond == false) {
 				$('#rowDraw').append('<div class="borderBetweenColumns col-md-3 widthDiv" id= "leftDiv' + i + '" ondrop="drop(event,modeForDrop)" ondragover="allowDrop(event)"><img id="leftImg' + i + '" class="imgCover " onclick="IMGClick(this.id)"></div>');
 
 			} else {
-				console.log("IMA IMG");
 				document.getElementById("leftImg"+i).classList.add("image-checkbox");
 				
 			}
@@ -266,9 +253,7 @@ function createRightDivs ( maxVisibleDraggedElement, randomElements ) {
 
 function loadLevel(mode) {
 	currentLevel = getCookie();
-	console.log("currentLevel="+currentLevel);
 	let nextLevelTitle = document.getElementById("titleLevel");
-	//console.log("Predi nextLevelTitle");
 	nextLevelTitle.innerHTML = `Ниво ` + currentLevel;
 																
 	let fnc = 'SELECT fileName,IMGshow FROM `levels` WHERE levelNumber = ' + currentLevel + ' ORDER BY DIVposition ASC ';
@@ -291,7 +276,6 @@ function loadLevel(mode) {
 				for(let i = 0; i<24; i++) {
 					// Винаги взимаме само четните елементи, защото те са имена на снимки
 					if (leftImageObj[i+1] == "yes") {
-						//document.getElementById('leftImg'+(i/2)).src = `pictures\\skin\\skin0${skin}\\${leftImageObj[i]}`;
 						document.getElementById('leftImg'+(i/2)).style.height = sizeOfImg;
 						document.getElementById('leftImg'+(i/2)).style.width  = sizeOfImg;
 						$('#leftImg'+i/2).attr("src", `pictures\\skin\\skin0${skin}\\${leftImageObj[i]}`);
@@ -301,16 +285,10 @@ function loadLevel(mode) {
 							$('#leftImg'+i/2).attr("src", `pictures\\skin\\skin0${skin}\\${leftImageObj[i]}`);
 							$('#leftImg'+i/2).width(sizeOfImg);
 							$('#leftImg'+i/2).height(sizeOfImg);
-							//document.getElementById("leftImg"+i/2).src = `pictures\\skin\\skin0${skin}\\${leftImageObj[i]}`;
-							//document.getElementById("leftImg"+i/2).style.height = sizeOfImg;
-							//document.getElementById("leftImg"+i/2).style.width  = sizeOfImg;
-							//document.getElementById("label"+i).addClass("image-checkbox-checked");
 
 							selectedImageArray.push("leftImg"+i/2);
-							//console.log("selectedImageArray="+selectedImageArray);
 							$('#leftImg'+i/2).addClass("image-checkbox-checked");
 							
-							//console.log("objectImgArray[i/2]="+objectImgArray[i/2].src);				
 							randomElements[dragIndex] = leftImageObj[i]; // Добавя верните отговори на първите места
 
 						} else {
@@ -395,7 +373,7 @@ function getCookie() {
 }
 
 function loadCreateLevel() {
-	console.log("VLizav v loadCreateLevel");
+
 	let nextLevelTitle = document.getElementById("titleLevel");
 	nextLevelTitle.innerHTML = "Създаване на нива";	
 	
@@ -405,9 +383,6 @@ function loadCreateLevel() {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			maxLevel = this.responseText;
-
-			console.log("maxLevelOT LOADCREATELEVEL="+maxLevel);
-
 
 			$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + 0 + '" selected>Изберете ниво</option>');	
 
@@ -434,30 +409,23 @@ function loadCreateLevel() {
 			draggedImageId[i].src = `pictures\\skin\\skin0${skin}\\${rightLoadImageCreate[i]}`;	
 			draggedImageId[i].style.height = sizeOfImg;
 			draggedImageId[i].style.width  = sizeOfImg;	
-			console.log("draggedImageId[i].src="+draggedImageId[i].src);
 		}		
 	
 }
 
 function IMGClick (IDofElement) {
-	console.log("VLiza v IMGClick - id = "+IDofElement);
 	
 	if ( $("#"+IDofElement).hasClass('image-checkbox-checked')) {	
 		$("#"+IDofElement).data('image-checkbox-checked', false);		
 		$("#"+IDofElement).removeClass("image-checkbox-checked");
-		console.log("Vliza v razmarkirane");
 	} else {
 		$("#"+IDofElement).data('image-checkbox-checked', true);		
 		$("#"+IDofElement).addClass("image-checkbox-checked");
-		console.log("Vliza v markirane");
 	}
 	updateSelectedImagesArray(IDofElement);	
 }
 
 function showLevelsForUser() {	
-	
-	console.log("maxLevel Всички въведени до момента нива = "+maxLevel );
-	console.log("reachedLevelUser за този потребител = "+sessionStorage.getItem("reachedLevelUser") );
 	
 	for(let i = 1 ; i <= maxLevel  ; i++) {
 		if ( i > sessionStorage.getItem("reachedLevelUser")) {
@@ -470,7 +438,6 @@ function showLevelsForUser() {
 	$("#continueGame").remove();
 }
 function buttonContinueGame(idOfButton) {
-	console.log("setCookie="+idOfButton.charAt(idOfButton.length - 1));
 	setCookie(idOfButton.charAt(idOfButton.length - 1));
 	window.location.href = "https://www.interactiveelectronics.eu/startLevels.html";
 }
@@ -478,7 +445,6 @@ function buttonContinueGame(idOfButton) {
 function updateSelectedImagesArray(IDofElement) {
 		if ($("#"+IDofElement).hasClass('image-checkbox-checked')) {		
 				if (!selectedImageArray.includes(IDofElement)) {
-					console.log("leftImageObj="+"#leftImg="+IDofElement);
 					selectedImageArray.push(IDofElement);
 				}
 		} else {
@@ -499,7 +465,6 @@ function deleteImage() {
 		$('.image-checkbox').removeClass('image-checkbox-checked');
 
 	}
-	console.log("#"+selectedImageArray);
 	selectedImageArray = [];
 }
 function deleteSelectMenu() {
@@ -521,7 +486,6 @@ function buttonPressedContinueGame() {
 function ChangeLevelInEditMode(event) {
 	var selectElement = event.target;
     var value = selectElement.value;
-	console.log("Избрано ниво за редактиране : "+value);
 	// Зарежда избраното ниво ако съществува. Ако НЕ съществува се отварят празни полета
 	setCookie(value);
 	loadLevel ('edit');
@@ -532,8 +496,6 @@ function saveLevel() {
 	// Извършва заявка за запис на ниво
 	let phpquery;
 	let imgShow;
-	
-	console.log("Zapochva saveLevel ..........level="+currentLevel+".....maxLevel="+maxLevel+".......");
 	
 	let ifOneElementChecked = false;
 	let ifOneImg = false;
@@ -565,7 +527,6 @@ function saveLevel() {
 
 		}
 		
-		console.log("leftImgId.src (id="+i+")="+leftImgId.src );
 		let onlyFileName = leftImgId.src;
 		
 		onlyFileName = onlyFileName.substring(onlyFileName.lastIndexOf("/") + 1);
@@ -578,10 +539,8 @@ function saveLevel() {
 	queryStr += queryParams;	// Добавя началото на заявката с данните, които трябва да се запишат
 	
 	if ( currentLevel > maxLevel ) {
-		console.log("Zapazvam NOVO nivo - INSERT.");
 		queryStr = "&q="+queryStr;
 	} else {
-		console.log("aktualiziram starvo niwo - UPDATE.");
 		queryStr = "update="+currentLevel+"&q="+queryStr;	// Добавя начало на заявката, за да изтрие текущите данни за ниво
 	}
 	
@@ -599,7 +558,6 @@ function saveLevel() {
 		let fnc = queryStr;
 		
 		if ( sessionStorage.getItem("userType") == 2 ) {		// Ако е администратор - запазва нивото
-			console.log("Има право - записва директно.");
 			document.getElementById("saveLevel").onclick = function() {
 				document.getElementById("textModalBodySecondModal").innerHTML = `Вие успешно запазихте нивото`;
 				$('#modalForSavedLevel').modal('show');
@@ -607,19 +565,15 @@ function saveLevel() {
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					// Divs left
-					console.log("Заявката е завършена. Резултат : "+this.responseText);
-					
+
 				} else {
-					console.log("Не е завършена заявката... Продължава да работи...");
+					
 				}
 			}
 			fnc = "1php_query.php?"+fnc+"&adminSaveLevel=yes&usermail="+textCrypto(sessionStorage.getItem("email"));
-			console.log("fnc = "+fnc);
 			xhttp.open("GET",fnc,true);
 			xhttp.send();		
 		} else {	// Ако е само потребител, не администратор, показва съобщение за изпращане на ниво към администратора
-			console.log("Това не е администратор - изпраща към администратор, но не прави нивото активно.");
 			document.getElementById("saveLevel").onclick = function() {
 				document.getElementById("textModalBodySecondModal").innerHTML = `Данните са изпратени към администратор на сайта, след одобрение, ще бъдат публикувани`;
 				$('#modalForSavedLevel').modal('show');
@@ -627,20 +581,13 @@ function saveLevel() {
 			
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
-				console.log("Predi readyState and this.status=200");
-				if (this.readyState == 4 && this.status == 200) {
-					// Divs left
-					console.log("Заявката е завършена. Резултат : ");
-					console.log(this.responseText);
-					
-					
+				if (this.readyState == 4 && this.status == 200) {					
 					
 				} else {
-					console.log("Не е завършена заявката... Продължава да работи...");
+
 				}
 			}
 			fnc = "1php_query.php?"+fnc+"&adminSaveLevel=no&usermail="+textCrypto(sessionStorage.getItem("email"));
-			console.log("fnc = "+fnc);
 			xhttp.open("GET",fnc,true);
 			xhttp.send();		
 			
@@ -799,15 +746,12 @@ function registerUser() {
 	let isRepeatedCorrectly=correctRepeat(email, password);
 
 	if ( checkForCorrectSymbolRegistration (email, "errorМessageEmail") == false ) {
-		console.log("Има забранени символи в Електронната поща : "+email);
 		return;
 	}
 	if ( checkForCorrectSymbolRegistration (password, "errorМessagePassword") == false ) {
-		console.log("Има забранени символи в Паролата : "+password);
 		return;
 	}
 	if ( checkForCorrectSymbolRegistration (name, "errorМessageName") == false ) {
-		console.log("Има забранени символи в name : "+name);
 		return;
 	}
 
@@ -816,17 +760,12 @@ function registerUser() {
 		let cryptoPass = makeCryptoPassword (password);		
 		let query = "email="+textCrypto(email)+"&pass="+ cryptoPass +"&name="+textCrypto($("#name").val());
 
-		console.log("Правилно са въведени данни, ще направи mysql заявка.");
-		console.log("query : Ще изпълня заявка : "+query);
-
 		$("#registrationDiv").remove();
-		console.log("query="+query);
 		let resultFromPHP;
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				resultFromPHP = this.responseText;
-				console.log ("result="+resultFromPHP);
 				if (resultFromPHP.includes("NoActivatedKey"))
 					$("#noVisibleDivRegistration").html('<p class="inwardsLine text-dark">Не е намерен правилен активационен ключ. Моля, проверете линка получен на мейла. Ако проблема продължи, свържете се с администратор на сайта. </p>');
 
@@ -891,15 +830,11 @@ function logUser() {
 	let query = "email="+textCrypto(email)+"&pass="+cryptoPass;
 	
 	if ( checkForCorrectSymbolLogin (email) == false ) {
-		console.log("Има забранени символи в Електронната поща : "+email);
 		return;
 	}
 	if ( checkForCorrectSymbolLogin (password) == false ) {
-		console.log("Има забранени символи в Паролата : "+password);
 		return;
 	}
-	
-	console.log("LogUser. Правилно са въведени данни, ще направи mysql заявка. query="+query);
 	
 	// Проверява дали някое от полетата е празно
 	if ( email == '' || password == '' ) {
@@ -913,8 +848,6 @@ function logUser() {
 			if (this.readyState == 4 && this.status == 200) {
 				resultFromPHP = this.responseText;
 				if (resultFromPHP.includes("LoginSuccessful")) {	// Ако от PHP е върнато, че има успешно логване
-					console.log("LoginSuccessful");
-					console.log(resultFromPHP);
 
 					let splitResultArray = resultFromPHP.split("@@@");
 					if ( parseInt(splitResultArray[1]) > 0 ) 	// Търси дали има записано ниво за конкретния потребител
@@ -1014,9 +947,8 @@ function logUser() {
 }
 
 function logOut () {
-	// Remove all saved data from sessionStorage
+	// Изтрива цялата информация от sessionStorage за даденото поле
 	sessionStorage.clear();
-	// Remove saved data from sessionStorage
 	sessionStorage.removeItem('email');
 
 	location.href = "https://www.interactiveelectronics.eu/loginForm.html";
