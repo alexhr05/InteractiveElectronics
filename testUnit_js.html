@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="AlexHR">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>TestUnit</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-host-cloud.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ 	<script src="/assets/js/md5.js"></script>
+</head>
+<body>
+	<nav id="menu">
+	</nav>
+	<div style="padding:20px;">
+		<br><br><br>
+		
+		<p style="color:white">
+		TestUnit тест на кодиране и изпращане на съобщения в Javascript:</p>
+
+		<br><p style="color:white">Проверка на криптиране: </p><br>
+		<p style="color:white" id="Element1">1</p>
+		<p style="color:white" id="Element2">2</p>
+
+		<br><p style="color:white">Проверка на ДЕкриптиране:</p><br>
+		<p style="color:white" id="Element3">3</p>
+		<p style="color:white" id="Element4">4</p>
+
+		<br><p style="color:white">Проверка на изпращане и получаване на съобщение към mysql:</p><br>
+		<p style="color:white" id="Element5">5</p>
+
+		<br><p style="color:white">Проверка на криптиране на парола: </p><br>
+		<p style="color:white" id="Element11">11</p>
+		<p style="color:white" id="Element12">22</p>
+		
+		<br><br><p style="color:white" id="Element13">23</p>
+
+	</div>
+	<script src="/game.js"></script>
+	<script>
+		let Text1 = "AzSumIvancho";
+		let Text2 = "ImaloEdnoVreme edna Baba Meca";
+		let Text3 = "imamsinovmail@bggoliamakola.bg";
+		let Text4 = "testIproba@gmail.comspekt";
+
+		let Text11 = "testAdmin1";
+		let Text12 = "TestUser15";
+		let Text13 = "";
+
+		$("#Element1").html("Тескт = "+Text1+", криптиран текст = "+textDeCrypto (Text1));
+		$("#Element2").html("Тескт = "+Text2+", криптиран текст = "+textDeCrypto (Text2));
+		$("#Element3").html("Тескт = "+Text3+", криптиран текст = "+textDeCrypto (Text3));
+		$("#Element4").html("Тескт = "+Text4+", криптиран текст = "+textDeCrypto (Text4));
+
+		$("#Element11").html("Тескт = "+Text11+", криптиран текст = "+makeCryptoPassword (Text11));
+		$("#Element12").html("Тескт = "+Text12+", криптиран текст = "+makeCryptoPassword (Text12));
+
+		// Заявка да провери колко нива са въведени до момента
+		let queryFnc = 'SELECT MAX(levelNumber) FROM `levels`';
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+					maxLevel = this.responseText;
+					$("#Element5").html("Максимално ниво, прочетено от mysql = "+maxLevel);
+				} 
+			}
+		xhttp.open("GET","php_query.php?q="+queryFnc,true);
+		xhttp.send();
+		// Край на заявка за проверка колко нива има въведени до момента
+
+
+		queryFnc = 'SELECT fileName,IMGshow FROM `levels` WHERE levelNumber = ' + currentLevel + ' ORDER BY DIVposition ASC ';
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var resultFromPHPQuery = this.responseText;
+				if ( resultFromPHPQuery != 'No result from query' ) {
+					// Масив от string-ове: Име на файл, yes/no
+					leftImageObj = JSON.parse(resultFromPHPQuery);
+
+					for(let i = 0; i<24; i++) {
+						Text13 += "<br>leftImageObj[i]="+leftImageObj[i];
+						i++;			 
+					} // Край на for
+				}
+				$("#Element13").html("Тескт = "+Text13);
+		   }
+		}
+
+	xhttp.open("GET","php_query.php?q="+queryFnc,true);
+	xhttp.send();
+				
+	</script>
+
+
+
+</body>
+</html>

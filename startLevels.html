@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta content="charset=utf-8" http-equiv="Content-Type">
-	<meta content="utf-8" http-equiv="encoding">
-	<link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="AlexHR">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
     <title>Интерактивна Електроника</title>
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Additional CSS Files --> 
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-host-cloud.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  </head>
-  <body onload="loadLevel()">
-
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+</head>
+<body onload="loadLevel()">
 	<nav id="menu">
 	</nav>
 
 	<div class="container-fluid containerSize" >
 		<div class="row divSmallMargin">
 			<div class="col-md-8">
-			<h2 id="titleLevel"></h2>
+			<div class="sideBySideElement">
+				<h2 id="titleLevel"></h2>
+			</div>
+			<div class="sideBySideElement ml-4 ">
+				<!-- Модален бутон за задействане -->			
+				<button type="button" class="btn colorOfButton text-white spaceBetweenButtons mb-3" data-toggle="modal" data-target="#exampleModal" id="conditionLevels">Условие за ниво</button>
+				<!--<button class="" onclick="saveLevel()">Запази</button>-->
+			</div>
+
+			
 			<div class="background container">	
-				<div class="row shadowEffectLeftDiv" id="rowDraw">
+				<div class="row" id="rowDraw">
 					<!--Рисува 12 div-а със снимките вътре-->
 				</div>
 			</div>
@@ -30,7 +45,7 @@
 		  		  
 		  <div class="col-md-4 ">
 			<h5 >Използвайте следните електронни елементи</h5>
-				<div class="row backgroundImg shadowEffectLeftDiv" id="rowImg">
+				<div class="row backgroundImg" id="rowImg">
 					<!-- Рисува 6 div-a със снимки вътре, които после да се поставят на празните места -->
 				</div>		
 		  </div>
@@ -45,31 +60,44 @@
 		
 	<div class="d-flex align-items-center justify-content-center divSmallMargin ">
 		<div class="p-3">
-			<a class="btn buttonColorChange text-white float-right spaceBetweenButtons" href="http://interactiveelectronics.eu/startLevels.html">Започни нивото от начало</a>
-		</div>
-		<div class="p-3">
-			<a class="btn buttonColorChange text-white spaceBetweenButtons" href="http://interactiveelectronics.eu/index.html">Основно меню</a>
+			<a class="btn colorOfButton text-white float-right spaceBetweenButtons" href="http://interactiveelectronics.eu/startLevels.html">Започнете нивото от начало</a>
 		</div>
 		<div class="d-flex align-items-center p-3">
-			<!-- Модален бутон за задействане -->
-			<button type="button" class="btn buttonColorChange text-white float-right spaceBetweenButtons" data-toggle="modal" data-target="#exampleModal" id="triggerModal" onclick="checkImg()">
-				Проверка
-			</button>
-			
+			<button class="btn colorOfButton text-white float-right spaceBetweenButtons" onclick="showCorrectImages()">Показване на верни отговори</button>
+		</div>
+		<div class="p-3">
+			<button type="button" class="btn colorOfButton text-white float-right spaceBetweenButtons" data-toggle="modal" data-target="#exampleModal" id="triggerModal" onclick="checkLevel()">Проверка</button>
 		</div>
 		
 
 	</div>
     
 	<!-- Модал при начало на ниво-->
+
+	<div id="openingLevelModalCondition" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h5 class="modal-title-first text-dark" id="exampleModalLabel">Условие на ниво</h5>
+			</div>
+
+			<div class="modal-body" id="textOpeningLevelModalIdCondition">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" id="buttonContinueNextModal">Продължи</button>
+			</div>
+		</div>
+		</div>
+	</div>
+
+
+	<!-- Модал при начало на ниво-->
 	<div id="openingLevelModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 			<h5 class="modal-title" id="exampleModalLabel"></h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
 			</div>
 			<div class="modal-body" id="textOpeningLevelModalId">
 			
@@ -87,14 +115,28 @@
 		<div class="modal-content">
 			<div class="modal-header">
 			<h5 class="modal-title" id="exampleModalLabel"></h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
 			</div>
 			<div class="modal-body" id="textEndingLevelModalId">
 			</div>
 			<div class="modal-footer">
-			<button type="button" class="btn btn-primary" data-dismiss="modal" id="toStartNextLevel">Продължи</button>
+			<button type="button" class="btn btn-primary" data-dismiss="modal" id="toStartNextLevel">Премини към следващо ниво</button>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<!-- Модал завършване на първо ниво без да сме се логнали-->
+	<div id="firstLevelDemoVersion" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="">Демо версия</h5>
+			</div>
+			<div class="modal-body" id="textFirstLevelDemoVersion">
+				
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" id="buttonDemoVersionGame">Продължи</button>
 			</div>
 		</div>
 		</div>
@@ -104,16 +146,52 @@
 
   </body>
   	<script type="text/javascript" src="rightLoadImage.json"></script>
-	<script type="text/javascript" src="textLevel1.json"></script>
-	<script type="text/javascript" src="game.js"></script>
+	<script type="text/javascript" src="textLevels.json"></script>
+	<script type="text/javascript" src="/game.js"></script>
   	<script>
-		textShow = JSON.parse(textLevelOne);
+		currentLevel = getCookie();
+		textShow = JSON.parse(textLevel);
+		let indexTextShow = currentLevel*2-2;
+		
 		modalTitle[0].innerHTML = `Информация за ниво ` + getCookie();
-		textOpeningLevelModal.innerHTML = textShow[0];
+		
+		textOpeningLevelModal.innerHTML = textShow[indexTextShow];
 		$(document).ready(function(){
-			$("#openingLevelModal").modal('show');
+			$("#openingLevelModalCondition").modal('show');			
 		});
-		console.log("------------------------------");
+		document.getElementById('buttonContinueNextModal').onclick = function() {
+			$("#openingLevelModal").modal('show');
+		}
+		document.getElementById('conditionLevels').onclick = function() {
+			$("#openingLevelModal").modal('show');
+		}
+		//document.getElementById('toStartNextLevel').onclick = function() {
+		//	$('#textFirstLevelDemoVersion').html(`Това е демо версия на играта за нерегистрирани потребители. Ако искате да продължите с играта и да се забавлявате на следващите нива, трябва да се регистрирате в сайта ни.`);
+		//	$('#firstLevelDemoVersion').modal('show');
+		//}
+		$('#toStartNextLevel').on( "click", function() {
+
+			if(sessionStorage.getItem("email") == null){
+				
+				$('#textFirstLevelDemoVersion').html(`Това е демо версия на играта за нерегистрирани потребители. Ако искате да продължите с играта и да се забавлявате на следващите нива, трябва да се регистрирате в сайта ни.`);
+				$('#firstLevelDemoVersion').modal('show');
+	
+				$('#buttonDemoVersionGame').on( "click", function() {
+					window.location.href = "https://www.interactiveelectronics.eu/loginForm.html";
+				});		
+				
+			}else{
+				location.reload();
+			}
+			
+		});
+//		console.log("sessionStorage.getItem(email)="+sessionStorage.getItem("email"));
+//		console.log("getCookie="+getCookie());
+
+//		if ( currentLevel == 1 )		// Само на първото ниво показва общата информация
+			conditionForTheLevels.innerHTML = `Трябва да изберете електронен елемент от подредените вдясно, така че да бъде възможна електрическата верига показана в полетата вляво. След като изберете електронен елемент, привлачете го с мишката и го пуснете на празните квадратчета вляво. След като сте избрали елементи за всички свободни позиции, изберете бутон ПРОВЕРКА.` ;
+		
+		
 	//	console.log("checkImg()="+checkImg());
 	//	if(checkImg()){
 	//		$('#triggerModal').on( "click", function() {
@@ -125,6 +203,11 @@
 	
 
 	</script>
+ 	<script src="/vendor/jquery/jquery.min.js"></script>
+ 	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+ <!-- Additional Scripts -->
+ 
 
 
 </html

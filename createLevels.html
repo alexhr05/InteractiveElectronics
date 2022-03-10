@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta content="charset=utf-8" http-equiv="Content-Type">
-	<meta content="utf-8" http-equiv="encoding">
-	<link rel="stylesheet" href="style.css">
-	<title>Интерактивна Електроника</title>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="AlexHR">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+	
+    <title>Интерактивна Електроника</title>
+	
+    <!-- Bootstrap core CSS -->
+	
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-host-cloud.css">
+	<link rel="stylesheet" href="/assets/css/owl.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 	
   </head>
   <body onload="loadCreateLevel()">
@@ -22,34 +35,35 @@
 		  <div class="col-md-9 divSmallMargin">
 			<h2 id="titleLevel"></h2>
 			<div class="dropdown">
-				<h6 id="titleText"></h6>
 				<select class="spaceBetweenButtons" id="dropdownMenu" onchange="ChangeLevelInEditMode(event)">
 				</select>
 				<!-- Модален бутон за задействане -->
-				<button type="button" class="btn buttonColorChange float-right spaceBetweenButtons ml-5 text-white" data-toggle="modal" data-target="#exampleModal" onclick="showModalText()">
-					Запази
-				</button>
-				<button type="button" class="btn buttonColorChange float-right image-checkbox spaceBetweenButtons text-white" id="backToChooseLevelStart">
-					Върни се в избери ниво
-				</button>
-				<button type="button" class="btn buttonColorChange spaceBetweenButtons text-white" id="deleteImage" onclick="deleteImage()">Изтрий избраните елементи</button>
+				
+				<button type="button" class="btn colorOfButton spaceBetweenButtons text-white" id="deleteImage" onclick="deleteImage()">Изтрий избраните елементи</button>
 				<!--<button class="" onclick="saveLevel()">Запази</button>-->
 			</div>
 			
 			<div class="background container">
-				<div class="row shadowEffectLeftDiv" id="rowDraw">
+				<div class="row " id="rowDraw">
 					<!-- Рисува 12 div-а със снимките вътре -->
 				</div>
 			</div>
-		  </div>
-		  		  
-		  <div class="col-md-3 divSmallMargin">
+			<button type="button" class="btn colorOfButton float-right spaceBetweenButtons ml-5 text-white" data-toggle="modal" data-target="#exampleModal" onclick="showModalSaveGame()">
+				Запази
+			</button>
+			<button type="button" class="btn colorOfButton float-right image-checkbox spaceBetweenButtons text-white " id="backToChooseLevelStart">
+				Върни се в избери ниво
+			</button>
+	  	  </div>
+		
+		
+		<div class="col-md-3 divSmallMargin">
 			<h5>Използвайте следните електронни елементи</h5>
-				<div class="row backgroundImg" id="rowImg">
-					<!-- Зарежда всички снимки -->
-				</div>		
-		  </div>
-			
+			<div class="row backgroundImg" id="rowImg">
+				<!-- Зарежда всички снимки -->
+			</div>		
+		</div>
+		 
 		</div>
 	</div>
 	 </div>
@@ -62,24 +76,53 @@
     
 	
 	
-	<!-- Модал -->
+	<!-- Модал за потвърждение, че искаме да запазим промените -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLabel">Запази промени</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			</div>
-			<div class="modal-body" id="textModalBody">
+				<h5 class="modal-title" id="exampleModalLabel">Запази промени</h5>
+				</div>
+				<div class="modal-body" id="textModalBody">
 
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" id="cancelSaves" data-dismiss="modal">Откажи</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveLevel()">Да</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="cancelSave" data-dismiss="modal">Откажи</button>
+					<button type="button" class="btn btn-primary"  id="saveLevel" data-dismiss="modal" onclick="saveLevel()">Да</button>
+				</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- Модал за потвърждение Тип Потребител -->
+	<div class="modal fade" id="modalForSavedLevel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Запази промени</h5>
+					</div>
+					<div class="modal-body" id="textModalBodySecondModal">		
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="cancelSave" data-dismiss="modal">Добре</button>
+					</div>
+				</div>
+			</div>
+	</div>
+
+	<!-- Модал за показване на грешки при запазването на нивата -->
+	<div class="modal fade" id="modalForErorr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Грешка при запазване</h5>
+				</div>
+				<div class="modal-body" id="textForErrorForSavingLevels">		
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="cancelSave" data-dismiss="modal">Добре</button>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -90,13 +133,13 @@
   	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
- 	<script type="text/javascript" src="game.js"></script>
+ 	<script type="text/javascript" src="/game.js"></script>
   	<script type="text/javascript" src="rightLoadImage.json"></script>
 	<script>
 			document.getElementById("backToChooseLevelStart").onclick = function() {
 				window.location.href = "http://interactiveelectronics.eu/chooseLevelStart.html";			
 	  		}
-		    document.getElementById("cancelSaves").onclick = function() {
+		    document.getElementById("cancelSave").onclick = function() {
 				window.location.reload();
 			}
 			document.getElementById("optionId").onclick = function() {
@@ -107,8 +150,8 @@
 				//document.getElementById('dropdownMenu').remove();
 				//document.getElementById('optionId').remove();
 			}
-	
 	</script>
-
+	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </html

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="AlexHR">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Интерактивна Електроника</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-host-cloud.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+</head>
+<body>
+	<nav id="menu">
+	</nav>
+		<div class="container borderInsideDiv colorOfMainDiv rounded w-75 borderDiv divSmallMargin spaceBetweenElementsTopBottom">
+			<div class="text-center text-white"><br>
+				<h1 class="text-center">Токоизправители</h1>
+				<h4 class="text-center">Еднополупериоден токоизправител</h4>
+				<img class="text-center" src="/pictures/Tokoizpravitel01.png" width="40%"></img>	
+
+				<p class="inwardsLine">Прилага се за малки мощности, при които к.п.д. няма голямо значение. 
+					Тази схема се състои от последователно свързани трансформатор, диод D и товарно съпротивление RL.
+					Когато вторичното напрежение на трансформатора е с + към анода на диода, 
+					D се отпушва, съпротивлението му става много малко и през веригата протича ток. 
+					През следващия полупериод диодът се запушва, съпротивлението му става много голямо и 
+					токът през вeригата не протича. Специфичното е, че трябва да издържа обратно напрежение по-голямо от амплитудата на напрежението. 
+					Коефициентът на пулсации на този токоизправител е kp = 1,57. Предимства на тази схема са 
+					нейните простота и ниска цена. Недостатъците й са големият коефициент на пулсации, 
+					ниският КПД на трансформатора, който през единия полупериод работи на празен ход, 
+					малките стойности на изправените ток и напрежение. Сравнително рядко се използва.
+				</p>
+
+				<h4 class="text-center">Двуполупериоден токоизправител</h4>
+				<img class="text-center" src="/pictures/animation-grez.gif" width="40%"></img>	
+				
+				<p class="inwardsLine">Използват се и двата полупериода на променливото напрежение. 
+					В единия полупериод работят диоди D1 и D4, като D2 и D3 са запушени. В другия полупериод работят D2 и D4, a D1 и D3 са запушени. 
+					На анимираната картинка, много добре е описан "пътят" на протичането на електрическия ток. 
+					Тази схема има много по-малък коефициент на пулсации (kp = 0,67). 
+					Средните стойности на изправените ток и напрежение са двойно по-големи отколкото при еднополупериодната схема.
+					Тази схема на свързване още е известна като ГРЕЦ.
+				</p>				
+
+				<h4 class="text-center">Стабилизатори на напрежение</h4>
+				<p class="inwardsLine">Изправителните устройства се използват, като постояннотокови захранващи източници.
+					Необходимо е захранващото напрежение да се запазва постоянно независимо от режима на работа. 
+					За осигурявяне на това изискване се използват стабилизатори на напрежение. Те се слагат след токоизправителите. Тук 
+					вече имаме добавени много електронни елементи, които поддържат постоянни ток и/или напрежение, осигуряват различни 
+					видове защити, които не позволяват на електронните елементи да изгорят. 
+					Качеството на стабилизаторите се оценява по техния коефициент на стабилизация. </p>
+					
+				<p class="inwardsLine">Стабилизаторите са много различни видове. Като се започне от най-простите и евтини :</p>
+				<p><img class="text-center" src="/pictures/Stabilizator01.jpg" width="40%"></img></p>
+				<p class="inwardsLine">Премине се през по-скъпи и сложни, усигуряващи по-висока надежност, измерване, обратна връзка и контрол :</p>
+				<p><img class="text-center" src="/pictures/Stabilizator02.jpg" width="40%"></img></p>
+				<p class="inwardsLine">И се стигне до цели комплексни решения, управлявани от разстояние и със собствени предварително зададени програми за работа :</p>
+				<p class="mb-5"><img src="/pictures/Stabilizator03.jpg" width="40%"></img></p>
+				<hr class="mt-3 mb-3 text-white backgroundColorMainDiv"/>
+				<div class="text-center mb-3">
+					<a href="lessons.html" class="btn colorOfButton text-white border border-white ">Към уроци</a>
+				</div>
+			</div>
+		</div>
+	
+  	</body>
+	<script type="text/javascript" src="/game.js"></script>
+	 
+</html

@@ -1,74 +1,77 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-	<meta content="utf-8" http-equiv="encoding">
-	<link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="AlexHR">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
-
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-
+    <title>Интерактивна Електроника</title>
 	
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-
-
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-host-cloud.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	 <title>Интерактивна Електроника</title>
-	</head>
-	<body>
-		<nav id="menu">
-		</nav>	
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ 	<script src="/assets/js/md5.js"></script>
+</head>
+<body>
+	<nav id="menu">
+	</nav>
 			<div class="mask d-flex align-items-center h-100 ">
 			<div class="container h-100">
 				<div class="row d-flex justify-content-center align-items-center h-100">
 				<div class="col-12 col-md-9 col-lg-7 col-xl-6 spaceBetweenButtons">
-					<div class="noVisibilityOfElement color backgroundMainDivColor shadowEffectLeftDiv rounded divBigMargin" id="noVisibleDivRegistration">
+					<div class="noVisibilityOfElement text-dark backgroundColorMainDiv rounded divBigMargin" id="noVisibleDivRegistration">
 						
 					</div>
-					<div class="card backgroundMainDivColor shadowEffectLeftDiv rounded " id="registrationDiv">
+					<div class="card backgroundColorMainDiv text-dark rounded " id="registrationDiv">
 					
 					<div class="card-body p-5 " >
-						<h3 class="text-uppercase text-center mb-5 text-white">Създаване на  акаунт</h3>
+						<h3 class="text-center mb-5 text-dark">Създаване на профил</h3>
 		
 						<form>
 		
 						<div class="form-outline mb-4">
-							<label class="form-label text-white h5">Напишете вашето име:</label>
-							<input type="text" id="name" class="form-control form-control-lg backgroundColorInputBox" placeholder="Име"/>
+							<label class="form-label text-dark h5">Вашето име:</label>
+							<input type="text" id="name" class="form-control form-control-lg backgroundColorInputBox" maxlength="30" placeholder="Име"/>
+							<p id="errorМessageName"></p>
 						</div>
 		
 						<div class="form-outline mb-4">
-							<label class="form-label text-white h5">Напишете вашата ел. поща:</label>
-							<input type="email" oninput="IsMatchingEmail()" id="idEmailX" class="form-control form-control-lg" placeholder="Ел. поща"/>
+							<label class="form-label text-dark h5">Електронна поща:</label>
+							<input type="email" oninput="IsMatchingEmail()" id="idEmailX" class="form-control form-control-lg" maxlength="50" placeholder="Електронна поща"/>
 							<p id="errorМessageEmail"></p>
 						</div>
 
 						<div class="form-outline mb-4">
-							<label class="form-label text-white h5">Повторете вашата ел. поща:</label>
-							<input type="text" oninput="IsMatchingEmail()" id="repeatEmail" class="form-control form-control-lg backgroundColorInputBox" placeholder="Повтори ел. поща"/>
+							<label class="form-label text-dark h5">Повторете електронна поща:</label>
+							<input type="text" oninput="IsMatchingEmail()" id="repeatEmail" class="form-control form-control-lg backgroundColorInputBox" maxlength="50" placeholder="Електронна поща"/>
 							<p id="errorМessageRepeatEmail"></p>
 						</div>
 		
 						<div class="form-outline mb-4">
-							<label class="form-label text-white h5">Напишете парола:</label>
-							<input type="password" oninput="IsMatchingPassword()" id="idPasswordX"  class="form-control form-control-lg" placeholder="Парола"/>
+							<label class="form-label text-dark h5">Парола:</label>
+							<input type="password" oninput="IsMatchingPassword()" id="idPasswordX"  class="form-control form-control-lg" maxlength="50" placeholder="Парола"/>
 							<p id="errorМessagePassword"></p>
 						</div>
 		
 						<div class="form-outline mb-4">
-							<label class="form-label text-white h5">Повторете парола:</label>
-							<input type="password"  id="repeatPassword" class="form-control form-control-lg backgroundColorInputBox" placeholder="Повтори парола" />
+							<label class="form-label text-dark h5">Потворете парола:</label>
+							<input type="password"  id="repeatPassword" class="form-control form-control-lg backgroundColorInputBox" maxlength="50" placeholder="Парола" />
 							<p id="errorМessageRepeatPassword"></p>
 						</div>
 		
 						<div class="d-flex justify-content-center">
-							<button type="button" onclick="registrationInfo()" class="btn  btn-block btn-lg  text-white backgroundDivColorShadowMenu">Регистрация</button>
+							<button type="button" onclick="registerUser()" class="btn colorOfButton px-5 text-white">Регистрация</button>
 						</div>
 		
-						<p class="text-center text-white mt-5 mb-0 h6"><a href="loginForm.html" class="text-white">Ако имате акаунт изберете този линк за вход</a></p>
+						<p class="text-center text-dark mt-5 mb-0 h6"><a href="loginForm.html" class="text-dark" >Ако имате профил изберете този линк за ВХОД</a></p>
 		
 						</form>
 		
@@ -78,6 +81,7 @@
 				</div>
 			</div>
 			</div>
-		<script type="text/javascript" src="game.js"></script>
+		<script type="text/javascript" src="/game.js"></script>
+
 	</body>
 </html>

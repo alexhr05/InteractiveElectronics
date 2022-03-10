@@ -1,64 +1,85 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta content="charset=utf-8" http-equiv="Content-Type">
-	<meta content="utf-8" http-equiv="encoding">
-	<link rel="stylesheet" href="style.css">
-    <title>Interactive Electronics</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="AlexHR">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-  </head>
-  <body>
+    <title>Интерактивна Електроника</title>
 	
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-host-cloud.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+</head>
+<body>
 	<nav id="menu">
 	</nav>
 
-
-	<div class="container w-50 borderInsideDiv shadowEffectLeftDiv backgroundMainDivColor rounded divTopMargin" style="border: solid;">
-		<h2 class="text-center divSmallMargin">Избери ниво</h2>
-		<div class="row justify-content-center text-center" >
+	<div class="container w-50 borderInsideDiv borderDiv rounded divTopMargin text-white" style="background-color:white">
+		<h2 class="text-center divSmallMargin text-dark">Изберете ниво</h2>
+		<hr class="mt-2 mb-3"/>
+		<div class="row justify-content-center text-center">
 			
-			<div class="col-6 spaceBetweenButtons">
-				<button class="btn btn-info text-white buttonWidth" id="newGame">Начало на игра</button>
-			</div>
-			<div class="col-6 spaceBetweenButtons">
-				<p class="color">Започва играта от 1 ниво за новобранци</p>
-			</div>
-			<div class="col-6 spaceBetweenButtons" id="divContinueGame">
-				<button class="btn btn-info text-white buttonWidth" id="continueGame" onclick="showAllLevels()">Продължи игра</button>
-			</div>
-			<div class="col-6 spaceBetweenButtons">
-				<p class="color">Продължава играта от там докъдето сте стигнал</p>
-			</div>
-			<div class="col-6 spaceBetweenButtons">
-				<button class="btn btn-info text-white buttonWidth" id="createLevels">Създай нови нива</button>
-			</div>
-			<div class="col-6 spaceBetweenButtons">
-				<p class="color">Създаване на собствени нива в играта</p>
-			</div>
+	
 		</div>
+		<hr class="mt-2 mb-3"/>
 		<div class="text-center spaceBetweenButtons">
-			<a class="btn buttonColorChange text-white " href="http://interactiveelectronics.eu/index.html" >Върни се</a>
+			<a class="btn colorOfButton text-white " href="index.html" >Главно меню</a>
 		</div>
 	</div>
 		
   </body>
-  <script src="game.js"></script>
+  <script src="/game.js"></script>
   <script type="text/javascript" src="rightLoadImage.json"></script>
   <script>
+
+		// Първия бутон за ПЪРВО ниво е видим за регистрирани и за НЕрегистрирани играчи
+		$(".row").html(`<div class="col-6 spaceBetweenButtons">
+							<button class="btn colorOfButton text-white " id="newGame">Начало на игра</button>
+						</div>
+						<div class="col-6 spaceBetweenButtons">
+							<p class="text-dark">Започва игра от Първо нивои</p>
+						</div>`);
+
+		// Втория и трети бутон за ИЗБОР НА НИВО и СЪЗДАВАНЕ НА СОБСТВЕНИ НИВА, са видими само за регистрирани
+		if(sessionStorage.getItem("email") != null){
+				$(".row").html(`<div class="col-6 spaceBetweenButtons">
+									<button class="btn colorOfButton text-white buttonWidth" id="newGame">Начало на игра</button>
+								</div>
+								<div class="col-6 spaceBetweenButtons">
+									<p class="text-dark sizeTextInButtonChooseLevel">Започва игра от Първо ниво</p>
+								</div>
+								<div class="col-6 spaceBetweenButtons" id="divContinueGame">
+									<button class="btn colorOfButton text-white buttonWidth" id="continueGame" onclick="showLevelsForUser()">Продължи игра</button>
+								</div>
+								<div class="col-6 spaceBetweenButtons">
+									<p class="text-dark sizeTextInButtonChooseLevel">Продължете играта, като изберете ниво</p>
+								</div>
+								<div class="col-6 spaceBetweenButtons">
+									<button class="btn colorOfButton text-white buttonWidth" id="createLevels">Създай нови нива</button>
+								</div>
+								<div class="col-6 spaceBetweenButtons">
+									<p class="text-dark sizeTextInButtonChooseLevel">Създаване на собствени нива в играта</p>
+								</div>`);
+			
+		}
+		
+		// Бутон ((( Начало на игра )))
 		document.getElementById('newGame').onclick = function() {
 			setCookie(1);
+		//	console.log("getCookie="+getCookie());
 			window.location.href = "http://interactiveelectronics.eu/startLevels.html";			
-	  	}
-     	
-		document.getElementById('createLevels').onclick = function() {
-			window.location.href = "http://interactiveelectronics.eu/createLevels.html";
-	  	}
-  </script>
+	  	}	
+  	</script>
+	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	
-</html
+</html>

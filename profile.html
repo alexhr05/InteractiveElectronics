@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="AlexHR">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Интерактивна Електроника</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-host-cloud.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+</head>
+<body onload="onLoadProfile()">
+	<nav id="menu">
+	</nav>
+
+	<div class="container w-50 borderInsideDiv borderDiv rounded divTopMargin text-white" style="background-color:white">
+		<h2 class="text-center divSmallMargin text-dark">Профил</h2>
+		<hr class="mt-2 mb-3 profileFirstAndLastLine"/>
+		<div class="row justify-content-center">
+			<div class="col-6 spaceBetweenButtons" id="divContinueGame">
+				<p class="text-dark sizeTextInButtonChooseLevel float-right">Име : </p>
+			</div>
+			<div class="col-6 spaceBetweenButtons">
+				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileUserName"></p>
+			</div>
+			<div class="col-12">
+				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
+			</div>
+			<div class="col-6 spaceBetweenButtons" id="divContinueGame">
+				<p class="text-dark sizeTextInButtonChooseLevel float-right">Електронна поща : </p>
+			</div>
+			<div class="col-6 spaceBetweenButtons">
+				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileEmail"></p>
+			</div>
+			<div class="col-12">
+				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
+			</div>
+			<div class="col-6 spaceBetweenButtons" id="divContinueGame">
+				<p class="text-dark sizeTextInButtonChooseLevel float-right">Тип Потребител :</p>
+			</div>
+			<div class="col-6 spaceBetweenButtons">
+				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileTypeOfUser">1</p>
+			</div>
+			<div class="col-12">
+				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
+			</div>
+			<div class="col-6 spaceBetweenButtons">
+				<p class="text-dark sizeTextInButtonChooseLevel float-right">Максимално достигнато ниво</p>
+			</div>
+			<div class="col-6 spaceBetweenButtons text-dark">
+				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileMaxLevel">1</p>
+			</div>
+			<div class="col-12">
+				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
+			</div>
+			<div class="col-12 spaceBetweenButtons text-center">
+				<a href="" id="ahrefLink" class="btn colorOfButton text-white" id="createLevels">Смяна на парола</a>
+			</div>
+		
+	
+		</div>
+		
+		<hr class="mt-2 mb-3 profileFirstAndLastLine"/>
+		<div class="text-center spaceBetweenButtons">
+			<a class="btn colorOfButton text-white" id="exit" href="index.html" > Изход</a>
+		</div>
+	</div>
+		
+	</body>
+	<script src="/game.js"></script>
+	<script type="text/javascript" src="rightLoadImage.json"></script>
+	<script>
+		$("#exit").attr('onClick', 'logOut()');			
+  	</script>
+	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="AlexHR">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Интерактивна Електроника</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-host-cloud.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ 	<script src="/assets/js/md5.js"></script>
+</head>
+<script>
+	let currentLevel = 0;
+function setCookie(cname) {
+  document.cookie = cname;
+  console.log("cname="+cname);
+}
+
+function getCookie() {
+  let decodedCookie = decodeURIComponent(document.cookie);
+  console.log("decodedCookie="+decodedCookie);
+  
+  let ca = decodedCookie.split(';');
+  console.log("ca=("+ca+")");
+  console.log("ca[0]=("+ca[0]+")");
+
+  if(ca[0] >= 1 && ca[0]<=100){
+	currentLevel = ca[0];	
+  }else{
+	  currentLevel = 1;
+  }
+  alert("currentLevel=("+currentLevel+")");
+  
+  
+}
+
+/*function checkCookie() {
+  let user = getCookie("username");
+  if (user != "") {
+    alert("Welcome again " + user);
+  } else {
+     user = prompt("Please enter your name:","");
+     if (user != "" && user != null) {
+       setCookie(currentLevel);
+     }
+  }
+}*/
+function IncreasePoint(){
+	currentLevel++;
+	setCookie(currentLevel);
+	console.log("currentLevel="+currentLevel);
+}	
+
+
+
+function TestCrypto(clearText){
+	let newStr = "";
+	for (let i=0; i<clearText.length; i++ ){
+		if ( i%2 == 0 )
+			newStr += String.fromCharCode (  clearText.charCodeAt(i) - 2 );
+		else
+			newStr += String.fromCharCode (  clearText.charCodeAt(i) + 1 );
+	}		
+	console.log("newStr22="+newStr);
+	return clearText;
+}	
+
+function TestDeCrypto(clearText){
+	let newStr = "";
+	for (let i=0; i<clearText.length; i++ ){
+		if ( i%2 == 0 )
+			newStr += String.fromCharCode (  clearText.charCodeAt(i) + 2 );
+		else
+			newStr += String.fromCharCode (  clearText.charCodeAt(i) - 1 );
+	}		
+	console.log("newStr22="+newStr);
+	return clearText;
+}	
+
+</script>
+</head>
+
+<body>
+	<button onclick="IncreasePoint()">Increase Point</button>
+	<button onclick="setCookie(1)">Set Cookie</button>
+	<button onclick="getCookie()">Get Cookie</button>
+	<button onclick="TestCrypto('петко п')">TestCrypto</button>
+	<button onclick="TestDeCrypto('нжрлм!н')">TestDeCrypto</button>
+
+</body>
+
+</html>
