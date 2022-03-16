@@ -38,32 +38,43 @@
 				<select class="spaceBetweenButtons" id="dropdownMenu" onchange="ChangeLevelInEditMode(event)">
 				</select>
 				<!-- Модален бутон за задействане -->
-				
 				<button type="button" class="btn colorOfButton spaceBetweenButtons text-white" id="deleteImage" onclick="deleteImage()">Изтрий избраните елементи</button>
-				<!--<button class="" onclick="saveLevel()">Запази</button>-->
 			</div>
-			
+
 			<div class="background container">
 				<div class="row " id="rowDraw">
 					<!-- Рисува 12 div-а със снимките вътре -->
 				</div>
 			</div>
-			<button type="button" class="btn colorOfButton float-right spaceBetweenButtons ml-5 text-white" data-toggle="modal" data-target="#exampleModal" onclick="showModalSaveGame()">
+			<button type="button" class="btn colorOfButton float-right spaceBetweenButtons ml-5 text-white" data-toggle="modal" data-target="#exampleModal" onclick="showModalSaveLevel()">
 				Запази
 			</button>
 			<button type="button" class="btn colorOfButton float-right image-checkbox spaceBetweenButtons text-white " id="backToChooseLevelStart">
 				Върни се в избери ниво
 			</button>
+
+
+		  <div class="col-md-9 divSmallMargin noVisibilityOfElement" id="forUserTypeAdmin"><br><br><br>
+			<h2 id="activateLevel">Управление на нива</h2>
+			<div class="dropdown">
+				
+				<button type="button" class="btn colorOfButton spaceBetweenButtons text-white" id="ActLevel" onclick="">Активирай Ниво X</button>
+			</div>
+	  	  </div>
+
 	  	  </div>
 		
-		
+
+		  
 		<div class="col-md-3 divSmallMargin">
 			<h5>Използвайте следните електронни елементи</h5>
-			<div class="row backgroundImg" id="rowImg">
+			<div class="row SizeCreateDivLeftDiv" id="rowImg">
 				<!-- Зарежда всички снимки -->
 			</div>		
 		</div>
 		 
+
+
 		</div>
 	</div>
 	 </div>
@@ -142,13 +153,8 @@
 		    document.getElementById("cancelSave").onclick = function() {
 				window.location.reload();
 			}
-			document.getElementById("optionId").onclick = function() {
-				while (document.getElementById("optionId").hasChildNodes()) {
-					document.getElementById("optionId").removeChild(document.getElementById("optionId").firstChild);
-				}
-				console.log("VLiza v onclickOptionId");
-				//document.getElementById('dropdownMenu').remove();
-				//document.getElementById('optionId').remove();
+			if ( sessionStorage.getItem("userType") == 2 ){
+				$("#forUserTypeAdmin").css("visibility", "visible");
 			}
 	</script>
 	<script src="/vendor/jquery/jquery.min.js"></script>

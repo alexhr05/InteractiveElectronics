@@ -32,6 +32,7 @@
 			<div class="sideBySideElement ml-4 ">
 				<!-- Модален бутон за задействане -->			
 				<button type="button" class="btn colorOfButton text-white spaceBetweenButtons mb-3" data-toggle="modal" data-target="#exampleModal" id="conditionLevels">Условие за ниво</button>
+				<a type="button" class="btn colorOfButton text-white spaceBetweenButtons mb-3 ml-4" href="/chooseLevelStart.html">Обратно в <b>Изберете ниво</b></a>
 				<!--<button class="" onclick="saveLevel()">Запази</button>-->
 			</div>
 
@@ -60,10 +61,10 @@
 		
 	<div class="d-flex align-items-center justify-content-center divSmallMargin ">
 		<div class="p-3">
-			<a class="btn colorOfButton text-white float-right spaceBetweenButtons" href="http://interactiveelectronics.eu/startLevels.html">Започнете нивото от начало</a>
+			<a class="btn colorOfButton text-white float-right spaceBetweenButtons" href="http://interactiveelectronics.eu/startLevels.html">Започни ниво от начало</a>
 		</div>
 		<div class="d-flex align-items-center p-3">
-			<button class="btn colorOfButton text-white float-right spaceBetweenButtons" onclick="showCorrectImages()">Показване на верни отговори</button>
+			<button class="btn colorOfButton text-white float-right spaceBetweenButtons" onclick="showCorrectImages()" value="show" id="showCorrectImagesButton">Показване на верни отговори</button>
 		</div>
 		<div class="p-3">
 			<button type="button" class="btn colorOfButton text-white float-right spaceBetweenButtons" data-toggle="modal" data-target="#exampleModal" id="triggerModal" onclick="checkLevel()">Проверка</button>
@@ -72,14 +73,14 @@
 
 	</div>
     
-	<!-- Модал при начало на ниво-->
+	<!-- Модал за условие на ниво-->
 
 	<div id="openingLevelModalCondition" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 		<div class="modal-content">
 
 			<div class="modal-header">
-				<h5 class="modal-title-first text-dark" id="exampleModalLabel">Условие на ниво</h5>
+				<h5 class="modal-title-first text-dark" id="exampleModalLabel">Условие на играта</h5>
 			</div>
 
 			<div class="modal-body" id="textOpeningLevelModalIdCondition">
@@ -142,6 +143,23 @@
 		</div>
 	</div>
 
+	<!-- Модал завършване на първо ниво без да сме се логнали-->
+	<div id="textErrorNotCorrectImageModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="">Грешка!</h5>
+			</div>
+			<div class="modal-body" id="textErrorNotCorrectImage">
+				
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" id="textErrorNotCorrectImageButton">Опитай пак</button>
+			</div>
+		</div>
+		</div>
+	</div>
+
 		
 
   </body>
@@ -149,15 +167,30 @@
 	<script type="text/javascript" src="textLevels.json"></script>
 	<script type="text/javascript" src="/game.js"></script>
   	<script>
-		currentLevel = getCookie();
+		if (sessionStorage.getItem("email") != null){		// Ако е логнат потребител
+			currentLevel = sessionStorage.getItem("currentLevel");
+		}else{
+			currentLevel = 1;
+			sessionStorage.setItem("currentLevel", currentLevel);
+		}
+			
+
 		textShow = JSON.parse(textLevel);
 		let indexTextShow = currentLevel*2-2;
+		let isFirstLevel = true;//sessionStorage.setItem("isFirstLevel", true);
 		
-		modalTitle[0].innerHTML = `Информация за ниво ` + getCookie();
+		modalTitle[0].innerHTML = `Информация за ниво ` + currentLevel;
 		
 		textOpeningLevelModal.innerHTML = textShow[indexTextShow];
 		$(document).ready(function(){
-			$("#openingLevelModalCondition").modal('show');			
+			// XXX да се отваря само веднъж
+			if(isFirstLevel == true && currentLevel == 1){
+				$("#openingLevelModalCondition").modal('show');			
+			}else{
+				isFirstLevel = false;
+				$("#openingLevelModal").modal('show');
+			}
+
 		});
 		document.getElementById('buttonContinueNextModal').onclick = function() {
 			$("#openingLevelModal").modal('show');
@@ -165,10 +198,7 @@
 		document.getElementById('conditionLevels').onclick = function() {
 			$("#openingLevelModal").modal('show');
 		}
-		//document.getElementById('toStartNextLevel').onclick = function() {
-		//	$('#textFirstLevelDemoVersion').html(`Това е демо версия на играта за нерегистрирани потребители. Ако искате да продължите с играта и да се забавлявате на следващите нива, трябва да се регистрирате в сайта ни.`);
-		//	$('#firstLevelDemoVersion').modal('show');
-		//}
+
 		$('#toStartNextLevel').on( "click", function() {
 
 			if(sessionStorage.getItem("email") == null){
@@ -185,11 +215,9 @@
 			}
 			
 		});
-//		console.log("sessionStorage.getItem(email)="+sessionStorage.getItem("email"));
-//		console.log("getCookie="+getCookie());
 
 //		if ( currentLevel == 1 )		// Само на първото ниво показва общата информация
-			conditionForTheLevels.innerHTML = `Трябва да изберете електронен елемент от подредените вдясно, така че да бъде възможна електрическата верига показана в полетата вляво. След като изберете електронен елемент, привлачете го с мишката и го пуснете на празните квадратчета вляво. След като сте избрали елементи за всички свободни позиции, изберете бутон ПРОВЕРКА.` ;
+		conditionForTheLevels.innerHTML = `Трябва да изберете електронен елемент от подредените вдясно, така че да бъде възможна електрическата верига показана в полетата вляво. След като изберете електронен елемент, привлачете го с мишката и го пуснете на празните квадратчета вляво. След като сте избрали елементи за всички свободни позиции, изберете бутон ПРОВЕРКА.` ;
 		
 		
 	//	console.log("checkImg()="+checkImg());
@@ -210,4 +238,4 @@
  
 
 
-</html
+</html>
