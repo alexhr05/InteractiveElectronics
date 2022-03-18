@@ -30,16 +30,11 @@ let conditionForTheLevels = document.getElementById("textOpeningLevelModalIdCond
 let modalTitle = document.querySelectorAll(".modal-title");
 
 let textShow;
-
-//<?php 
-//$libdir				= "./../../save_dir_electronics/";		// Директория с файлове, които да НЕ са достъпни през WEB
-//include ($libdir."defines.php");
-//echo "let sendKey='".secureKey."'"; ?>
+let editModeTableName = 'публикувани нива';
 
 let currentTime = Date.now();
 if (sessionStorage.getItem("logInTime") != null) {	
 	if (currentTime - sessionStorage.getItem("logInTime") >= 60000*60) {// След 60 мин ще разглогне
-//		console.log("Разлогва по време.");
 		alert("Не сте използвали играта от дълго време и програмата Ви е изключила. Може да ВЛЕЗЕТЕ отново от бутон ВХОД.");
 		logOut();
 	}	
@@ -55,7 +50,7 @@ xhttp.onreadystatechange = function() {
 			console.log ("maxLevel from REFRESH="+maxLevel);
 		} 
 	}
-xhttp.open("GET","php_query.php?q="+fnc,true);
+xhttp.open("GET","php_query.php?sendKey="+sessionStorage.getItem('sendKey')+"&q="+fnc,true);
 xhttp.send();
 // Край на заявка за проверка колко нива има въведени до момента
 
@@ -108,6 +103,7 @@ console.log ("reachedLevelUser="+sessionStorage.getItem("reachedLevelUser"));
 console.log ("userType="+sessionStorage.getItem("userType"));
 console.log ("currentLevel="+sessionStorage.getItem("currentLevel"));
 console.log ("maxLevel="+maxLevel);
+console.log ("sendKey="+sessionStorage.getItem('sendKey'));
 
 // За диагностика: КРАЙ ----------------------
 
@@ -164,11 +160,21 @@ function checkLevel() {
 	for(let i=0; i < 24; i++) {
 		if (leftImageObj[i+1]=="no" ) {
 		 	if (leftImageObj[i]==dropElement[i/2]) {
+				$('#'+dropElement[i/2]).addClass("correctImage");
+			//	$('#' + dropElement[i/2]).addClass("correctImage");
+				console.log("PRAVILNI+ whichELEMENt"+dropElement[i/2]);
 				textCorrectWrong += leftImageObj[i]+" == "+dropElement[i/2]+"- OK\n";
+			//	document.getElementById(dropElement[i/2]).classList.add("correctImage");
+				
 			} else {
+			//	$('#'+dropElement[i/2]).addClass("correctImage");
+				$('#' + dropElement[i/2]).addClass("wrongImage");
+				console.log("GRESHNI+OTGO"+dropElement[i/2]);
 				textCorrectWrong += leftImageObj[i]+" != "+dropElement[i/2]+"- Wrong\n";				
 				ismeeting = false;
-				break;
+			//	document.getElementById(dropElement[i/2]).classList.add("wrongImage");
+				
+//				break;
 			}
 		}
 		i++;
@@ -183,7 +189,11 @@ function checkLevel() {
 			
 		modalTitle[1].innerHTML = `Поздравления, Вие завършихте успешно ниво ` + currentLevel;
 		let indexTextShow = currentLevel*2-1;		
-		textEndingLevelModal.innerHTML = textShow[indexTextShow];
+		textEndingLevelModal.innerHTML += `<div style"border:solid" class="imgToDiv">
+												<center><img id="gif" src="/pictures/skin/skin02/gif/level` + currentLevel + `.gif" width="50%" height="50%"></center>
+											</div>`;
+		textEndingLevelModal.innerHTML += `<div class="imgToDiv">`+ textShow[indexTextShow]+`</div>`;
+
 		if (sessionStorage.getItem("email") != null) {
 			currentLevel++;
 		} else {
@@ -203,7 +213,7 @@ function checkLevel() {
 				xhttp.onreadystatechange = function() {
 
 				}
-				xhttp.open("GET","php_query.php?sendKey="+sendKey+"&q="+fnc,true);
+				xhttp.open("GET","php_query.php?sendKey="+sessionStorage.getItem('sendKey')+"&q="+fnc,true);
 				xhttp.send();
 			}
 		}
@@ -252,16 +262,7 @@ function showCorrectImages(){
 			
 			if (leftImageObj[i+1]=="no" ) {
 				$('#leftImg'+i/2).remove();
-				//jQuery('#leftImg'+i/2).removeAttr('src');
-				//$('#leftImg'+i/2).removeClass("correctImage");
-				//jQuery('#leftImg'+i/2).show();
-			//	$('#leftImg'+i/2).attr("src", `pictures\\skin\\skin0${skin}\\${leftImageObj[i]}`);
-			//	$('#leftImg'+i/2).width(sizeOfImg);
-			//	$('#leftImg'+i/2).height(sizeOfImg);
-			//	$('#leftImg'+i/2).addClass("correctImage");
-				
-			//	console.log("leftImageObj="+leftImageObj[i]);
-			//	console.log("postion"+i/2);
+
 			}
 			i++;
 		}
@@ -327,25 +328,32 @@ function createRightDivs ( maxVisibleDraggedElement, randomElements ) {
 }
 
 function loadLevel(mode) {
-	console.log ("loadLevel, режим = "+mode);
+//	console.log ("loadLevel, режим = "+mode);
 	if (sessionStorage.getItem("email") != null) {// За логнат потребител
 		currentLevel = sessionStorage.getItem("currentLevel");
 	}else{
 		currentLevel = 1;// Не логнат потребител
 	}
 	
-	console.log("currentLevelFRomLoadLevel; sessionStorage.getItem="+currentLevel);
 	let nextLevelTitle = document.getElementById("titleLevel");
 	
-	if ( mode == 'edit' )
+	if ( mode == 'edit' ) {
 		if ( sessionStorage.getItem("userType") == 2 )
-			nextLevelTitle.innerHTML = `Редактиране на Ниво ` + currentLevel + `, режим АДМИН`;
+			nextLevelTitle.innerHTML = `Редактиране на Ниво ` + currentLevel + `, режим АДМИН, `+editModeTableName;
 		else
-			nextLevelTitle.innerHTML = `Редактиране на Ниво ` + currentLevel + `, режим Потребител`;
-	else
+			nextLevelTitle.innerHTML = `Редактиране на Ниво ` + currentLevel + `, режим Потребител, `+editModeTableName;
+			$('#ActLevel').html(`Активирай Ниво ` + currentLevel);
+			  
+	} else
 		nextLevelTitle.innerHTML = `Ниво ` + currentLevel;
-																
-	let fnc = 'SELECT fileName,IMGshow FROM `levels` WHERE levelNumber = ' + currentLevel + ' ORDER BY DIVposition ASC ';
+													
+	let realTableName = "";
+	if ( editModeTableName == 'публикувани нива' )
+		realTableName = "levels";
+	else
+		realTableName = "levelsusers";
+	
+	let fnc = 'SELECT fileName,IMGshow FROM `'+realTableName+'` WHERE levelNumber = ' + currentLevel + ' ORDER BY DIVposition ASC ';
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
@@ -445,51 +453,140 @@ function loadLevel(mode) {
 		  }	// Край на проверка дали сме в режим ИГРА
 	   }
 	}
-
-	xhttp.open("GET","php_query.php?sendKey="+sendKey+"&q="+fnc,true);
+	let finalQuery = "php_query.php?sendKey="+sessionStorage.getItem('sendKey')+"&q="+fnc;
+	xhttp.open("GET",finalQuery,true);
 	xhttp.send();
+//	console.log ("finalQuery="+finalQuery);
 }
 
-//function setCookie(cname) {
-//	document.cookie = cname;
-//}
-  
-//function getCookie() {
-//	let decodedCookie = decodeURIComponent(document.cookie);
-//	let ca = decodedCookie.split(';');
-	
-//	if (ca[0] >= 0 && ca[0]<=100)
-//	  currentLevel = ca[0];	
+function chooseUserLevels(SelectElement) {
+	if ( SelectElement == "Levels" ) {		// ---------- ОСНОВНИ нива --------------
+		console.log ("ОСНОВНИ нива");
+		editModeTableName = 'публикувани нива';
+		
+		// Да се изтриват всички елементи
+		for(let i = 0; i <= maxLevel + 1; i++){
+			$('#optionId').remove();
+		}
+		
+		// Добавят се новите
+		$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + 0 + '" selected>Изберете ниво</option>');	
+		for( let i = 1; i <= maxLevel; i++) {
+			$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + i + '">Ниво '+ i +'</option>');
+		}
+		$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + (parseInt(maxLevel) + 1) + '">Създай собствено ниво</option>');
+	} else {						 		// ---------- ДОПЪЛНИТЕЛНИ нива само за АДМИН --------------
+		console.log ("ДОПЪЛНИТЕЛНИ нива само за АДМИН");
+		editModeTableName = 'нива за одобрение';
 
-//	return currentLevel;	
-//}
+		// Да се изтриват всички елементи
+		for(let i = 0; i <= maxLevel + 1; i++){
+			$('#optionId').remove();
+		}
+
+
+		// Прави запитване към mysql, за да види колко нива са въведени и кое да се редактира и кое ще бъде НОВО
+		let fnc = 'SELECT MAX(levelNumber) FROM `levelsusers`';
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				maxLevel = this.responseText;
+				console.log ("loadCreateLevel.(maxLevel="+maxLevel);
+	//			$('#dropdownMenuTable').append('<option onclick="chooseUserLevels(this.id)" id="Levels" value="Levels" class="dropdown-item">Levels</option>');	
+	//			$('#dropdownMenuTable').append('<option onclick="chooseUserLevels(this.id)" id="UserLevels" value="UserLevels" class="dropdown-item">UserLevels</option>');	
+
+				// Добавят се новите
+				$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + 0 + '" selected>Изберете ниво</option>');	
+				for( let i = 1; i <= maxLevel; i++) {
+					$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + i + '">Ниво '+ i +'</option>');
+				}
+				$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + (parseInt(maxLevel) + 1) + '">Създай собствено ниво</option>');
+
+			} 
+		}
+		xhttp.open("GET","php_query.php?sendKey="+sessionStorage.getItem('sendKey')+"&q="+fnc,true);
+		xhttp.send();
+		// Край на заявка за проверка колко нива има въведени до момента
+
+
+
+
+		// Добавят се новите
+//		$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + 0 + '" selected>Изберете ниво</option>');	
+//		for( let i = 1; i <= maxLevel; i++) {
+//			$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + i + '">Ниво '+ i +'</option>');
+//		}
+//		$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + (parseInt(maxLevel) + 1) + '">Създай собствено ниво</option>');
+	}
+}
 
 function loadCreateLevel() {	// Извиква се от createLevels.html
 	console.log ("loadCreateLevel...");
 	
-	let nextLevelTitle = document.getElementById("titleLevel");
-	nextLevelTitle.innerHTML = "Създаване на нива";	
-
- 	// Прави запитване към mysql, за да види колко нива са въведени и кое да се редактира и кое ще бъде НОВО
-	let fnc = 'SELECT MAX(levelNumber) FROM `levels`';
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			maxLevel = this.responseText;
-			console.log ("loadCreateLevel.(maxLevel="+maxLevel);
-
-			$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + 0 + '" selected>Изберете ниво</option>');	
-
-			for( let i = 1; i <= maxLevel; i++) {
-				$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + i + '">Ниво '+ i +'</option>');
-			}
-			$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + (parseInt(maxLevel) + 1) + '">Създай собствено ниво</option>');
-		} 
+	// Да се изтриват всички елементи
+	for(let i = 0; i <= maxLevel + 1; i++){
+		$('#optionId').remove();
 	}
-	xhttp.open("GET","php_query.php?sendKey="+sendKey+"&q="+fnc,true);
-	xhttp.send();
-	// Край на заявка за проверка колко нива има въведени до момента
+
+	let nextLevelTitle = document.getElementById("titleLevel");
+	if ( sessionStorage.getItem("userType") == 2 ) {
+		nextLevelTitle.innerHTML = "Създаване на нива - Администратор";	
 	
+		// Прави запитване към mysql, за да види колко нива са въведени и кое да се редактира и кое ще бъде НОВО
+		let fnc = 'SELECT MAX(levelNumber) FROM `levels`';
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				maxLevel = this.responseText;
+				console.log ("loadCreateLevel.(maxLevel="+maxLevel);
+				$('#dropdownMenuTable').append('<option onclick="chooseUserLevels(this.id)" id="Levels" value="Levels" class="dropdown-item">Levels</option>');	
+				$('#dropdownMenuTable').append('<option onclick="chooseUserLevels(this.id)" id="UserLevels" value="UserLevels" class="dropdown-item">UserLevels</option>');	
+
+				// Добавят се новите
+				$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + 0 + '" selected>Изберете ниво</option>');	
+				for( let i = 1; i <= maxLevel; i++) {
+					$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + i + '">Ниво '+ i +'</option>');
+				}
+				$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + (parseInt(maxLevel) + 1) + '">Създай собствено ниво</option>');
+
+			} 
+		}
+		xhttp.open("GET","php_query.php?sendKey="+sessionStorage.getItem('sendKey')+"&q="+fnc,true);
+		xhttp.send();
+		// Край на заявка за проверка колко нива има въведени до момента
+	
+
+	} else {
+		nextLevelTitle.innerHTML = "Създаване на нива - Потребител";	
+
+		
+		// Прави запитване към mysql, за да види колко нива са въведени и кое да се редактира и кое ще бъде НОВО
+		let fnc = 'SELECT MAX(levelNumber) FROM `levels`';
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				maxLevel = this.responseText;
+				console.log ("loadCreateLevel.(maxLevel="+maxLevel);
+				$('#dropdownMenuTable').append('<option onclick="chooseUserLevels(this.id)" id="Levels" value="Levels" class="dropdown-item">Levels</option>');	
+				$('#dropdownMenuTable').append('<option onclick="chooseUserLevels(this.id)" id="UserLevels" value="UserLevels" class="dropdown-item">UserLevels</option>');	
+
+				// Добавят се новите
+				$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + 0 + '" selected>Изберете ниво</option>');	
+				for( let i = 1; i <= maxLevel; i++) {
+					$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + i + '">Ниво '+ i +'</option>');
+				}
+				$('#dropdownMenu').append('<option onclick="deleteSelectMenu()" id="optionId" class="dropdown-item" value="' + (parseInt(maxLevel) + 1) + '">Създай собствено ниво</option>');
+
+			} 
+		}
+		xhttp.open("GET","php_query.php?sendKey="+sessionStorage.getItem('sendKey')+"&q="+fnc,true);
+		xhttp.send();
+		// Край на заявка за проверка колко нива има въведени до момента
+	
+
+		
+	}
+
 
 		createLeftDivs('edit'); 
 		 
@@ -572,6 +669,7 @@ function deleteImage() {
 }
 function deleteSelectMenu() {
 	document.getElementById("dropdownMenu").remove();
+	document.getElementById("dropdownMenuTable").remove();
 }
 function showModalSaveLevel() {
 	let textModalBody = document.getElementById("textModalBody");
@@ -613,88 +711,87 @@ function saveLevelUser() {
 	let ifOneElementChecked = false;
 	let ifOneImg = false;
 
+	// Тук да се определи кое ниво ще запише
+	let fnc = 'SELECT MAX(levelNumber) FROM `levelsusers`';
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			maxLevelInUserLevels = this.responseText;
+			maxLevelInUserLevels++;
+			console.log ("maxLevelInUserLevels from REFRESH="+maxLevelInUserLevels);
 	
-	let queryParams 	= "";	// Тук записва кои снимки и къде да ги запише
-	for (let i = 0; i < maxDiv;i++) {
-		leftImgId = document.getElementById("leftImg"+i);
-		cond = document.getElementById("leftImg"+i) || false;
-		if ( cond != false  && leftImgId.src.length > 0) {
-			ifOneImg=true;
-			if (leftImgId.classList.contains('image-checkbox-checked')) {
-				imgShow = "no";
-				ifOneElementChecked = true;
-			} else {
-				imgShow = "yes";	
-			}
-		} else {
-			ifOneImg=false;
-			break;
+			let queryParams 	= "";	// Тук записва кои снимки и къде да ги запише
+			for (let i = 0; i < maxDiv;i++) {
+				leftImgId = document.getElementById("leftImg"+i);
+				cond = document.getElementById("leftImg"+i) || false;
+				if ( cond != false  && leftImgId.src.length > 0) {
+					ifOneImg=true;
+					if (leftImgId.classList.contains('image-checkbox-checked')) {
+						imgShow = "no";
+						ifOneElementChecked = true;
+					} else {
+						imgShow = "yes";	
+					}
+				} else {
+					ifOneImg=false;
+					break;
 
+				}
+				
+				let onlyFileName = leftImgId.src;		
+				onlyFileName = onlyFileName.substring(onlyFileName.lastIndexOf("/") + 1);
+				
+				queryParams 		+= "(now(),"+maxLevelInUserLevels+",'"+onlyFileName+"',"+(i+1)+",'"+imgShow+"','1')";
+				if ( i != maxDiv-1 )	// Добавя запетая на всички редове, без последния
+					queryParams 		+= ", ";
+				
+			}
+			
+			if (ifOneElementChecked==false) {
+				$("#textForErrorForSavingLevels").html('Трябва да маркирате поне 1 елемент, който да бъде скрит');
+				$('#modalForErorr').modal('show');
+			}
+			if (ifOneImg==false) {
+				$("#textForErrorForSavingLevels").html('Трябва да запълните всички празни позиции с елементи от дясно');
+				$('#modalForErorr').modal('show');
+			}
+			
+			if (ifOneImg == true && ifOneElementChecked == true ) {		
+				
+				// Извършва заявка за запис на ниво
+				let queryStr;
+
+				queryStr = "INSERT INTO `levelsusers` (date, levelNumber, fileName, DIVposition, IMGshow, isValid) VALUES ";
+
+				queryStr += queryParams;	// Добавя началото на заявката с данните, които трябва да се запишат
+
+				queryStr = "&q="+queryStr;
+
+				let fnc = queryStr;
+				
+				document.getElementById("saveLevel").onclick = function() {
+					document.getElementById("textModalBodySecondModal").innerHTML = `Вие запазихте успешно ниво.`;
+					$('#modalForSavedLevel').modal('show');
+				}
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+
+					} else {
+
+					}
+				}
+				fnc = "php_query.php?sendKey="+sessionStorage.getItem('sendKey')+"&"+fnc+"&adminSaveLevel=no&usermail="+textCrypto(sessionStorage.getItem("email"));
+				console.log ("Изпълнява заявка : "+fnc);
+				xhttp.open("GET",fnc,true);
+				xhttp.send();		
+
+				alert("Данните са изпратени към администратор на сайта, след одобрение, ще бъдат публикувани. ");				
+			} 
 		}
-		
-		let onlyFileName = leftImgId.src;		
-		onlyFileName = onlyFileName.substring(onlyFileName.lastIndexOf("/") + 1);
-		
-		queryParams 		+= "(now(),"+currentLevel+",'"+onlyFileName+"',"+(i+1)+",'"+imgShow+"','1')";
-		if ( i != maxDiv-1 )	// Добавя запетая на всички редове, без последния
-			queryParams 		+= ", ";
-		
 	}
-	
-	if (ifOneElementChecked==false) {
-		$("#textForErrorForSavingLevels").html('Трябва да маркирате поне 1 елемент, който да бъде скрит');
-		$('#modalForErorr').modal('show');
-	}
-	if (ifOneImg==false) {
-		$("#textForErrorForSavingLevels").html('Трябва да запълните всички празни позиции с елементи от дясно');
-		$('#modalForErorr').modal('show');
-	}
-	
-	if (ifOneImg == true && ifOneElementChecked == true ) {		
-		
-		// Извършва заявка за запис на ниво
-		let queryStr;
-
-		queryStr = "INSERT INTO `levelsusers` (date, levelNumber, fileName, DIVposition, IMGshow, isValid) VALUES ";
-
-		queryStr += queryParams;	// Добавя началото на заявката с данните, които трябва да се запишат
-
-
-		// Тук да се определи кое ниво ще запише
-		let fnc = 'SELECT MAX(levelNumber) FROM `levels`';
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-					maxLevelInUserLevels = this.responseText;
-					console.log ("maxLevelInUserLevels from REFRESH="+maxLevelInUserLevels);
-					
-					queryStr = "&q="+queryStr;
-
-					let fnc = queryStr;
-					
-					document.getElementById("saveLevel").onclick = function() {
-						document.getElementById("textModalBodySecondModal").innerHTML = `Вие запазихте успешно ниво.`;
-						$('#modalForSavedLevel').modal('show');
-					}
-					var xhttp = new XMLHttpRequest();
-					xhttp.onreadystatechange = function() {
-						if (this.readyState == 4 && this.status == 200) {
-
-						} else {
-
-						}
-					}
-					fnc = "1php_query.php?sendKey="+sendKey+"&"+fnc+"&adminSaveLevel=no&usermail="+textCrypto(sessionStorage.getItem("email"));
-					console.log ("Изпълнява заявка : "+fnc);
-					xhttp.open("GET",fnc,true);
-					xhttp.send();		
-
-					alert("Данните са изпратени към администратор на сайта, след одобрение, ще бъдат публикувани. ");				
-				} 
-			}
-		xhttp.open("GET","php_query.php?q="+fnc,true);
-		xhttp.send();
-	}	
+	xhttp.open("GET","php_query.php?sendKey="+sessionStorage.getItem('sendKey')+"&q="+fnc,true);	// Взима максималното записано ниво до момента, тази заявка започва от началото на функцията
+	xhttp.send();	
 }
 
 function saveLevelAdmin() {
@@ -772,7 +869,7 @@ function saveLevelAdmin() {
 
 			}
 		}
-		fnc = "2php_query.php?sendKey="+sendKey+"&"+fnc+"&adminSaveLevel=yes&usermail="+textCrypto(sessionStorage.getItem("email"));
+		fnc = "php_query.php?sendKey="+sessionStorage.getItem('sendKey')+"&"+fnc+"&adminSaveLevel=yes&usermail="+textCrypto(sessionStorage.getItem("email"));
 		console.log ("Изпълнява заявка : "+fnc);
 		xhttp.open("GET",fnc,true);
 		xhttp.send();		
@@ -978,7 +1075,7 @@ function registerUser() {
 				
 			} 
 		}
-		xhttp.open("GET","register.php?sendKey="+sendKey+"&"+query,true);
+		xhttp.open("GET","register.php?sendKey="+sessionStorage.getItem('sendKey')+"&"+query,true);
 		xhttp.send();
 		
 		
@@ -1058,12 +1155,18 @@ function logUser() {
 					else
 						keyss = "noKeyss";
 
+					if ( splitResultArray[6].length > 0 ) 	// Получава ключ за следващи заявки
+						sendKey = splitResultArray[6];
+					else
+						sendKey = "nosendKey";
+
 					sessionStorage.setItem("username", username);
 					sessionStorage.setItem("email", email);
 					sessionStorage.setItem("logInTime", Date.now());
 					sessionStorage.setItem("reachedLevelUser", userExperienceLevel);
 					sessionStorage.setItem("userType", userType);
 					sessionStorage.setItem("keyss", keyss);
+					sessionStorage.setItem("sendKey", sendKey);
 
 					// Печата съобщение ДОБРЕ ДОШЪЛ ...
 					$("#logInDiv").remove();
@@ -1123,7 +1226,7 @@ function logUser() {
 
 			} 
 		}
-		xhttp.open("GET","login.php?sendKey="+sendKey+"&"+query,true);
+		xhttp.open("GET","login.php?sendKey="+sessionStorage.getItem('sendKey')+"&"+query,true);
 		xhttp.send();
 		// Край на заявка за проверка колко нива има въведени до момента	
 	}

@@ -47,8 +47,8 @@
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="service-item backgroundTiles">
               <a href="chooseLevelStart.html"><img src="/pictures/playGame.png" class="rounded w-50" ></a>
-              <a href="chooseLevelStart.html"><h4 class="text-white">Старт игра</h4></a>
-              <p class="text-white">Започнете играта, подредете електронните елементи<br><br></p>
+              <a href="chooseLevelStart.html"><h4 class="text-white">Започни упражнения</h4></a>
+              <p class="text-white">Започнете упражненията, подредете електронните елементи<br><br></p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 col-xs-12">
@@ -66,28 +66,44 @@
     <!-- Services Ends Here -->
 
 
-
-
-
     <!-- Footer Starts Here -->
-	<footer class="pt-4 colorOfMainDiv">
+<!--	<footer class="pt-4 colorOfMainDiv">
 		<div class="container-fluid text-center text-md-left ">
 		</div>
 
 		<div class="text-center py-3 text-white">Интерактивна Електроника, НОИТ, Автор: Алекс Христов
 		</div>
-	</footer>
+	</footer>-->
     <!-- Footer Ends Here -->
 
     <!-- Bootstrap core JavaScript -->
-   <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Additional Scripts -->
     <script src="/assets/js/custom.js"></script>
     <script src="/assets/js/owl.js"></script>
-   <script src="/assets/js/accordions.js"></script>
-   <script type="text/javascript" src="/game.js"></script>
+    <script src="/assets/js/accordions.js"></script>
+    <script type="text/javascript" src="/game.js"></script>
+
+<script>
+// Започва сесия, записва в базата, САМО за нелогнати потребители
+//if ( sessionStorage.getItem('sendKey') == null ) {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+				resultFromPHP = this.responseText;
+				console.log ("Записва sendKey ot Index="+resultFromPHP);
+				sendKey = resultFromPHP;
+				sessionStorage.setItem("sendKey", sendKey);
+			} 
+		}
+	xhttp.open("GET","startSession.php",true);
+	xhttp.send();
+//}
+// Край на заявка за проверка колко нива има въведени до момента
+</script>
+
 
   </body>
 </html>

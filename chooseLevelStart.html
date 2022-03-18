@@ -43,41 +43,39 @@
 
 		// Първия бутон за ПЪРВО ниво е видим за регистрирани и за НЕрегистрирани играчи
 		$(".row").html(`<div class="col-6 spaceBetweenButtons">
-							<button class="btn colorOfButton text-white " id="newGame">Начало на игра</button>
+							<button class="btn colorOfButton text-white " id="newGame" onclick="startFromLevel1()">Начало на игра</button>
 						</div>
 						<div class="col-6 spaceBetweenButtons">
-							<p class="text-dark">Започва игра от Първо нивои</p>
+							<p class="text-dark">Започва игра от Първо ниво</p>
 						</div>`);
 
 		// Втория и трети бутон за ИЗБОР НА НИВО и СЪЗДАВАНЕ НА СОБСТВЕНИ НИВА, са видими само за регистрирани
 		if(sessionStorage.getItem("email") != null){
 				$(".row").html(`<div class="col-6 spaceBetweenButtons">
-									<button class="btn colorOfButton text-white buttonWidth" id="newGame">Начало на игра</button>
+									<button class="btn colorOfButton text-white buttonWidth" id="newGame" onclick="startFromLevel1()">Начало на игра</button>
 								</div>
 								<div class="col-6 spaceBetweenButtons">
-									<p class="text-dark sizeTextInButtonChooseLevel">Започва игра от Първо ниво</p>
+									<p class="text-dark sizeTextInButtonChooseLevel" >Започва упражненията от първо ниво</p>
 								</div>
 								<div class="col-6 spaceBetweenButtons" id="divContinueGame">
 									<button class="btn colorOfButton text-white buttonWidth" id="continueGame" onclick="showLevelsForUser()">Продължи игра</button>
 								</div>
 								<div class="col-6 spaceBetweenButtons">
-									<p class="text-dark sizeTextInButtonChooseLevel">Продължете играта, като изберете ниво</p>
+									<p class="text-dark sizeTextInButtonChooseLevel">Продължете упражнения, като изберете ниво</p>
 								</div>
 								<div class="col-6 spaceBetweenButtons">
 									<button class="btn colorOfButton text-white buttonWidth" id="createLevels">Създай нови нива</button>
 								</div>
 								<div class="col-6 spaceBetweenButtons">
-									<p class="text-dark sizeTextInButtonChooseLevel">Създаване на собствени нива в играта</p>
+									<p class="text-dark sizeTextInButtonChooseLevel">Създаване на собствени упражнения</p>
 								</div>`);
 			
 		}
 		
-		// Бутон ((( Начало на игра )))
-		document.getElementById('newGame').onclick = function() {
-			setCookie(1);
-		//	console.log("getCookie="+getCookie());
-			window.location.href = "http://interactiveelectronics.eu/startLevels.html";			
-	  	}	
+		$('#createLevels').on( "click", function() {
+			window.location.href = "/createLevels.html";
+		});		
+
   	</script>
 	<script src="/vendor/jquery/jquery.min.js"></script>
 	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

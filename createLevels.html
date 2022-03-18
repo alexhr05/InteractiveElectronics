@@ -35,6 +35,9 @@
 		  <div class="col-md-9 divSmallMargin">
 			<h2 id="titleLevel"></h2>
 			<div class="dropdown">
+				<select class="spaceBetweenButtons noVisibilityOfElement" id="dropdownMenuTable" >
+				</select>
+
 				<select class="spaceBetweenButtons" id="dropdownMenu" onchange="ChangeLevelInEditMode(event)">
 				</select>
 				<!-- Модален бутон за задействане -->
@@ -54,11 +57,12 @@
 			</button>
 
 
-		  <div class="col-md-9 divSmallMargin noVisibilityOfElement" id="forUserTypeAdmin"><br><br><br>
+		  <div class="col-md-9 divSmallMargin noVisibilityOfElement mt-5" id="forUserTypeAdmin"><br><br><br>
 			<h2 id="activateLevel">Управление на нива</h2>
 			<div class="dropdown">
-				
-				<button type="button" class="btn colorOfButton spaceBetweenButtons text-white" id="ActLevel" onclick="">Активирай Ниво X</button>
+				<label class="text-white">Вмъкни след ниво:</label>
+				<input value="X"  maxlength="4" size="2" >
+				<button type="button" class="btn colorOfButton spaceBetweenButtons text-white" id="ActLevel" onclick=""></button>
 			</div>
 	  	  </div>
 
@@ -148,16 +152,28 @@
   	<script type="text/javascript" src="rightLoadImage.json"></script>
 	<script>
 			document.getElementById("backToChooseLevelStart").onclick = function() {
-				window.location.href = "http://interactiveelectronics.eu/chooseLevelStart.html";			
+				window.location.href = "/chooseLevelStart.html";			
 	  		}
 		    document.getElementById("cancelSave").onclick = function() {
 				window.location.reload();
 			}
 			if ( sessionStorage.getItem("userType") == 2 ){
 				$("#forUserTypeAdmin").css("visibility", "visible");
+				$("#dropdownMenuTable").css("visibility", "visible");	
+			}else{
+				$("#dropdownMenuTable").remove();	
 			}
+			console.log("currentTime="+currentTime);
+			console.log("sessionStorage.getItem(logInTime)="+sessionStorage.getItem("logInTime"));
+			console.log("sessionStorage.getItem(email)="+sessionStorage.getItem("email"));
+			console.log("sessionStorage.getItem(username)="+sessionStorage.getItem("username"));
+			if(sessionStorage.getItem("username") == null || sessionStorage.getItem("email") == null || sessionStorage.getItem("logInTime") == null){
+				window.location.href = "/index.html";			
+			}
+			
+			
 	</script>
 	<script src="/vendor/jquery/jquery.min.js"></script>
 	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-</html
+</html>
