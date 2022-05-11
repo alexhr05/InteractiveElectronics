@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="AlexHR">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Интерактивна Електроника</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-host-cloud.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+</head>
+<body onload="loadLevelExpert()">
+	<nav id="menu">
+	</nav>
+
+  <!--<div class="container-fluid containerSize" >
+		<div class="row divSmallMargin">
+        <div class="col-9 ">
+          <div class="col-6 offset-1">
+            <div class="sideBySideElement">
+                <h2 id="titleLevelExpert"></h2>
+              </div>
+              <div class="sideBySideElement ml-4 ">
+               
+                <a type="button" class="btn colorOfButton text-white spaceBetweenButtons mb-3 ml-4" href="/chooseLevelStart.html">Обратно в <b>Изберете ниво</b></a>
+                
+              </div>
+            </div>
+            <div class=" text-center">
+              <img class="schemes" id="schemes">
+              <input type="text" class="inputBoxSchemes" value="A" id="Ampere">
+            </div>
+        </div>
+
+        <div class="col-3">
+          <h2 >Условие на упражнението</h2>
+            <div class="backgroundColorMainDiv rounded conditionBoxExpertLevel inwardsLine text-dark" id="textConditionLevelExpert">
+              <hr style="background-color:blue">
+            </div>  
+
+        </div>
+    </div>
+  </div>-->
+
+ <!-- Модален бутон за задействане -->	
+ <!--<button class="" onclick="saveLevel()">Запази</button>-->		
+    <!-- Services Starts Here -->
+  <div class="services-section services-page">
+      <div class="container">
+        <div class="row">
+          <div class="col-9">
+            <div class="col-6 offset-1">
+              <div class="sideBySideElement">
+                  <h2 id="titleLevelExpert"></h2>
+                </div>
+                <div class="sideBySideElement ml-4">
+                  <a type="button" class="btn colorOfButton text-white spaceBetweenButtons mb-3 ml-4" href="/chooseLevelStart.html">Обратно в <b>Изберете ниво</b></a>
+                </div>
+              </div>
+              <div class=" text-center">
+                <img class="schemes" id="schemes">
+                <input type="text" class="inputBoxSchemes" id="Ohm" autocomplete='off' />
+              </div>
+          </div>
+          <div class="col-3 ">
+            <div class="backgroundColorMainDiv rounded inwardsLine text-dark pl-3 pr-3 pb-2 text-dark conditionHeightExpertLevel" id="textConditionLevelExpert">
+              
+            </div>  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Services Ends Here -->
+	<div class="text-center spaceBetweenButtons">
+		<button type="submit" class="btn colorOfButton px-5 text-white" id="checkExpertLevel" onclick="checkLevelsExperts()" type="submit">Проверка</button>
+	</div>
+	<!--<div class=" ">
+	
+	</div>-->
+  <div id="openingLevelModalExpert" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalTitleExpert"></h5>
+			</div>
+			<div class="modal-body" id="ModalBodyExpert">
+			
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" id="toStartNextLevelExpert">Продължи към следващо ниво</button>
+			</div>
+		</div>
+		</div>
+	</div>
+<!-- За грешка при упражненията-->
+  <div id="errorLevelModalExpert" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="errorExampleModalTitleExpert"></h5>
+			</div>
+			<div class="modal-body" id="errorModalTitleExpert">
+			
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" id="toStartNextLevelExpert">Продължи към следващо ниво</button>
+			</div>
+		</div>
+		</div>
+	</div>
+
+
+    <!-- Bootstrap core JavaScript -->
+   <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="/assets/js/custom.js"></script>
+    <script src="/assets/js/owl.js"></script>
+   <script src="/assets/js/accordions.js"></script>
+   <script type="text/javascript" src="/game.js"></script>
+   <script type="text/javascript" src="/answerLevelOne.json"></script>
+   <script type="text/javascript" src="/textLevelsExpert.json"></script>
+  <script>
+		$('#toStartNextLevelExpert').on( "click", function() {
+
+      if(sessionStorage.getItem("email") == null){
+        
+        $('#textFirstLevelDemoVersion').html(`Това е демо версия на играта за нерегистрирани потребители. Ако искате да продължите с играта и да се забавлявате на следващите нива, трябва да се регистрирате в сайта ни.`);
+        $('#firstLevelDemoVersion').modal('show');
+
+        $('#buttonDemoVersionGame').on( "click", function() {
+          window.location.href = "/loginForm.html";
+        });		
+        
+      }else{
+        location.reload();
+      }
+
+    });
+
+    let textShowExpert = JSON.parse(textLevelExpert);
+    console.log("currentLevel="+currentLevel);
+		let indexTextShow = sessionStorage.getItem("currentLevel")*2-2;
+    console.log("indexTextShow="+indexTextShow);
+    $("#textConditionLevelExpert").html("<h2 class="+"text-dark"+">Условие на упражнението</h2><hr>"+textShowExpert[indexTextShow]);
+
+  </script>  
+  </body>
+</html>

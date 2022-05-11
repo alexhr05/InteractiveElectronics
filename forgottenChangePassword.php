@@ -91,7 +91,7 @@ getPostIfSet(array('activationCode','action','passwordX','repeatPassword','submi
 			
 			//Ако  са въведени данни в полетата за пароли , update-вам парола. Заявка към бзата данни update 
 			if ( isset($submit) and checkText($idHiddenPassword) == "" and $passwordX != "" and $repeatPassword != "" and $passwordX==$repeatPassword ) {
-				$query = "UPDATE `users`SET `password`='".addslashes($idHiddenPassword)."' WHERE `activation`='".addslashes($activationCode)."'";
+				$query = "UPDATE `users` SET `password`='".addslashes($idHiddenPassword)."' WHERE `activation`='".addslashes($activationCode)."'";
 				$result = mysqli_query($conn, $query);
 				if ( mysqli_affected_rows($conn)>0 ) {
 					echo "<br>Ima rezultat";

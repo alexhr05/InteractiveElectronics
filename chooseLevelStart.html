@@ -24,7 +24,7 @@
 	</nav>
 
 	<div class="container w-50 borderInsideDiv borderDiv rounded divTopMargin text-white" style="background-color:white">
-		<h2 class="text-center divSmallMargin text-dark">Изберете ниво</h2>
+		<h2 class="text-center divSmallMargin text-dark">Избери ниво</h2>
 		<hr class="mt-2 mb-3"/>
 		<div class="row justify-content-center text-center">
 			
@@ -43,7 +43,7 @@
 
 		// Първия бутон за ПЪРВО ниво е видим за регистрирани и за НЕрегистрирани играчи
 		$(".row").html(`<div class="col-6 spaceBetweenButtons">
-							<button class="btn colorOfButton text-white " id="newGame" onclick="startFromLevel1()">Начало на игра</button>
+							<button class="btn colorOfButton text-white " id="newGame" onclick="startFromLevel1()">Начало на упражнения</button>
 						</div>
 						<div class="col-6 spaceBetweenButtons">
 							<p class="text-dark">Започва игра от Първо ниво</p>
@@ -52,16 +52,22 @@
 		// Втория и трети бутон за ИЗБОР НА НИВО и СЪЗДАВАНЕ НА СОБСТВЕНИ НИВА, са видими само за регистрирани
 		if(sessionStorage.getItem("email") != null){
 				$(".row").html(`<div class="col-6 spaceBetweenButtons">
-									<button class="btn colorOfButton text-white buttonWidth" id="newGame" onclick="startFromLevel1()">Начало на игра</button>
+									<button class="btn colorOfButton text-white buttonWidth" id="newGame" onclick="startFromLevel1()">Начало на упражнения</button>
 								</div>
 								<div class="col-6 spaceBetweenButtons">
 									<p class="text-dark sizeTextInButtonChooseLevel" >Започва упражненията от първо ниво</p>
 								</div>
 								<div class="col-6 spaceBetweenButtons" id="divContinueGame">
-									<button class="btn colorOfButton text-white buttonWidth" id="continueGame" onclick="showLevelsForUser()">Продължи игра</button>
+									<button class="btn colorOfButton text-white buttonWidth" id="continueGame" onclick="showLevelsForUser()">Продължи упражнения</button>
 								</div>
 								<div class="col-6 spaceBetweenButtons">
 									<p class="text-dark sizeTextInButtonChooseLevel">Продължете упражнения, като изберете ниво</p>
+								</div>
+								<div class="col-6 spaceBetweenButtons" id="divContinueExpertsGame">
+									<button class="btn colorOfButton text-white buttonWidth" id="ContinueExpertsGame" onclick="showExpertLevelsForUser()">Упражнения за напреднали</button>
+								</div>
+								<div class="col-6 spaceBetweenButtons">
+									<p class="text-dark sizeTextInButtonChooseLevel">Започва упражнения за смятане на стойности от първо ниво</p>
 								</div>
 								<div class="col-6 spaceBetweenButtons">
 									<button class="btn colorOfButton text-white buttonWidth" id="createLevels">Създай нови нива</button>

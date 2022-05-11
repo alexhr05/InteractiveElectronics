@@ -27,14 +27,15 @@ body {
 }
 .borderBetweenColumns{
 	border: solid;
+	border-width: thin;
 }
 .spaceBetweenElementsTopBottom{
 	margin-bottom: 2% !important;
 }
 
 .inwardsLine{
-	text-indent: 60px;
-	padding: 2%;
+	text-indent: 40px;
+	padding: 1%;
 	font-size:medium;
 	text-align: left!important;
 	color:white;
@@ -52,7 +53,12 @@ body {
 	height: 58% !important;
 	width: 68% !important;
 }
-
+.SizeCreateDivLeftDiv{
+	height: 30%;
+	background: #aaa;
+	border-radius: 15px;
+	overflow-y: scroll;
+}
 /*image gallery*/
 .image-checkbox {
 	cursor: pointer;
@@ -103,6 +109,11 @@ h2,h5{
 .spaceBetweenButtons{
 	margin-top: 3%;	
 	margin-bottom: 3%;	
+}
+
+.spaceBetweenLinesInProfile{
+	margin-top: 1%;	
+	margin-bottom: 1%;	
 }
 
 .divTopMargin{
@@ -170,7 +181,7 @@ input[type="text"],input[type="password"], input[type="email"]{
 }
 
 .buttonWidth{
-	width: 40%;
+	width: 55%;
 }
 
 .mr-right{
@@ -181,9 +192,9 @@ input[type="text"],input[type="password"], input[type="email"]{
 	background-color:  #033c75!important;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1600px) {
 	.buttonWidth {
-		width: 70%;
+		width: 75%;
 	}
 	.buttonFontSizeText{
 		font-size: medium;
@@ -191,18 +202,29 @@ input[type="text"],input[type="password"], input[type="email"]{
 }
 @media screen and (max-width: 1000px) {
 	.buttonWidth {
-		width: 85%;
+		width: 90%;
 	}
 	.buttonFontSizeText{
 		font-size: medium;
 	}
 }
+
+@media screen and (max-width: 800px) and (min-width: 700px){
+	.buttonWidth {
+		width: 95%;
+	}
+	.buttonFontSizeText{
+		font-size: medium;
+	}
+
+}
+
 @media screen and (max-width: 700px) {
 	.buttonWidth {
 		width: 100%;
 	}
 	.buttonFontSizeText{
-		font-size: medium;
+		font-size: small;
 	}
 }
 .borderDiv{
@@ -269,4 +291,42 @@ hr.profileSecondAndThirdLine{
 .backgroundTiles{
 	background-color:  #0452a0 !important;
 	opacity: 0.9;
+}
+.imgLogo {
+  border:2px solid #fff;
+  background: url(img/tiger.png) no-repeat;
+  -moz-box-shadow: inset 10px 10px 50px #fff;
+  -webkit-box-shadow: inset 10px 10px 50px #fff;
+  box-shadow: inset 5px 5px 20px #fff;
+}
+.correctImage{
+	border-style: solid ;
+	border-color: rgb(0, 192, 42);
+}
+.wrongImage{
+	border-style: solid ;
+	border-color: rgb(168, 8, 2);
+}
+.biggerModal{
+	max-width: 48%;
+}
+.imgToDiv{
+	display: inline-block;	
+}
+.schemes{
+	background-repeat: no-repeat;
+	width: 78%;
+	height: 80%;
+}
+.inputBoxSchemes{
+	position:absolute;
+    width:5%;
+}
+.conditionHeightExpertLevel{
+	margin-top:24%;
+	height: 88%;
+}
+meter{
+	width:50%;
+	margin-left: 10%;
 }

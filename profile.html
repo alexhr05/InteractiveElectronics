@@ -23,47 +23,58 @@
 	<nav id="menu">
 	</nav>
 
-	<div class="container w-50 borderInsideDiv borderDiv rounded divTopMargin text-white" style="background-color:white">
+	<div class="container w-50 borderInsideDiv borderDiv rounded divTopMargin text-white mb-4" style="background-color:white">
 		<h2 class="text-center divSmallMargin text-dark">Профил</h2>
 		<hr class="mt-2 mb-3 profileFirstAndLastLine"/>
 		<div class="row justify-content-center">
-			<div class="col-6 spaceBetweenButtons" id="divContinueGame">
-				<p class="text-dark sizeTextInButtonChooseLevel float-right">Име : </p>
+			<div class="col-6 spaceBetweenLinesInProfile" id="divContinueGame">
+				<p class="text-dark sizeTextInButtonChooseLevel float-right">Име:</p>
 			</div>
-			<div class="col-6 spaceBetweenButtons">
+			<div class="col-6 spaceBetweenLinesInProfile">
 				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileUserName"></p>
 			</div>
 			<div class="col-12">
 				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
 			</div>
-			<div class="col-6 spaceBetweenButtons" id="divContinueGame">
-				<p class="text-dark sizeTextInButtonChooseLevel float-right">Електронна поща : </p>
+			<div class="col-6 spaceBetweenLinesInProfile" id="divContinueGame">
+				<p class="text-dark sizeTextInButtonChooseLevel float-right">Електронна поща:</p>
 			</div>
-			<div class="col-6 spaceBetweenButtons">
+			<div class="col-6 spaceBetweenLinesInProfile">
 				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileEmail"></p>
 			</div>
 			<div class="col-12">
 				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
 			</div>
-			<div class="col-6 spaceBetweenButtons" id="divContinueGame">
-				<p class="text-dark sizeTextInButtonChooseLevel float-right">Тип Потребител :</p>
+			<div class="col-6 spaceBetweenLinesInProfile" id="divContinueGame">
+				<p class="text-dark sizeTextInButtonChooseLevel float-right">Тип Потребител:</p>
 			</div>
-			<div class="col-6 spaceBetweenButtons">
-				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileTypeOfUser">1</p>
-			</div>
-			<div class="col-12">
-				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
-			</div>
-			<div class="col-6 spaceBetweenButtons">
-				<p class="text-dark sizeTextInButtonChooseLevel float-right">Максимално достигнато ниво</p>
-			</div>
-			<div class="col-6 spaceBetweenButtons text-dark">
-				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileMaxLevel">1</p>
+			<div class="col-6 spaceBetweenLinesInProfile">
+				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileTypeOfUser"></p>
 			</div>
 			<div class="col-12">
 				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
 			</div>
-			<div class="col-12 spaceBetweenButtons text-center">
+			<div class="col-6 spaceBetweenLinesInProfile">
+				<p class="text-dark sizeTextInButtonChooseLevel float-right">Максимално достигнато ниво:</p>
+			</div>
+			<div class="col-6 spaceBetweenLinesInProfile text-dark">
+				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="profileMaxLevel"></p>
+				<meter id="progressBar"></meter>
+			</div>
+			<div class="col-12">
+				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
+			</div>
+			<div class="col-6 spaceBetweenLinesInProfile">
+				<p class="text-dark sizeTextInButtonChooseLevel float-right">Последно изиграно ниво:</p>
+			</div>
+			<div class="col-6 spaceBetweenLinesInProfile text-dark">
+				<p class="text-dark sizeTextInButtonChooseLevel float-left" id="lastPlayedLevel">1</p>
+			</div>
+			<div class="col-12">
+				<hr class="mt-2 mb-3 profileSecondAndThirdLine"/>
+			</div>
+
+			<div class="col-12 spaceBetweenLinesInProfile text-center">
 				<a href="" id="ahrefLink" class="btn colorOfButton text-white" id="createLevels">Смяна на парола</a>
 			</div>
 		
@@ -71,8 +82,8 @@
 		</div>
 		
 		<hr class="mt-2 mb-3 profileFirstAndLastLine"/>
-		<div class="text-center spaceBetweenButtons">
-			<a class="btn colorOfButton text-white" id="exit" href="index.html" > Изход</a>
+		<div class="text-center spaceBetweenLinesInProfile">
+			<a class="btn colorOfButton text-white" id="exit" href="/index.html" > Изход</a>
 		</div>
 	</div>
 		
@@ -81,6 +92,13 @@
 	<script type="text/javascript" src="rightLoadImage.json"></script>
 	<script>
 		$("#exit").attr('onClick', 'logOut()');			
+		console.log("currentTime="+currentTime);
+		console.log("sessionStorage.getItem(logInTime)="+sessionStorage.getItem("logInTime"));
+		console.log("sessionStorage.getItem(email)="+sessionStorage.getItem("email"));
+		console.log("sessionStorage.getItem(username)="+sessionStorage.getItem("username"));
+		if(sessionStorage.getItem("username") == null || sessionStorage.getItem("email") == null || sessionStorage.getItem("logInTime") == null){
+			window.location.href = "/index.html";			
+		}
   	</script>
 	<script src="/vendor/jquery/jquery.min.js"></script>
 	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

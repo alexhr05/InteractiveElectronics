@@ -35,7 +35,7 @@
 		  <div class="col-md-9 divSmallMargin">
 			<h2 id="titleLevel"></h2>
 			<div class="dropdown">
-				<select class="spaceBetweenButtons noVisibilityOfElement" id="dropdownMenuTable" >
+				<select class="spaceBetweenButtons noVisibilityOfElement" id="dropdownMenuTable">
 				</select>
 
 				<select class="spaceBetweenButtons" id="dropdownMenu" onchange="ChangeLevelInEditMode(event)">
@@ -53,7 +53,7 @@
 				Запази
 			</button>
 			<button type="button" class="btn colorOfButton float-right image-checkbox spaceBetweenButtons text-white " id="backToChooseLevelStart">
-				Върни се в избери ниво
+				Върни се в <b>Избери ниво</b>
 			</button>
 
 
@@ -61,8 +61,9 @@
 			<h2 id="activateLevel">Управление на нива</h2>
 			<div class="dropdown">
 				<label class="text-white">Вмъкни след ниво:</label>
-				<input value="X"  maxlength="4" size="2" >
-				<button type="button" class="btn colorOfButton spaceBetweenButtons text-white" id="ActLevel" onclick=""></button>
+				<select class="spaceBetweenButtons" id="dropdownMenuForSaving" >
+				</select>
+				<button type="button" class="btn colorOfButton spaceBetweenButtons text-white" id="ActLevel" onclick="">Запази ниво в база данни</button>
 			</div>
 	  	  </div>
 

@@ -3,6 +3,7 @@ $libdir				= "./../../save_dir_electronics/";		// Директория с фай
 include ($libdir."defines.php");
 include ($libdir."database.php");
 include ($libdir."functions.php");
+$ip_server = $_SERVER['REMOTE_ADDR'];
 
 $user_msg_body1		= "";
 $email				= "";
@@ -11,7 +12,7 @@ $name				= "";
 $keyss				= "";
 $errorIncorrect		= "";	// Изпраща мейл при некоректно въведени букви/символи
 
-if ( strpos (allowIPAddress, $_SERVER['REMOTE_ADDR'] ) > 0 ) {
+//if ( strpos (allowIPAddress, $_SERVER['REMOTE_ADDR'] ) > 0 ) {
 	getPostIfSet(array('email', 'pass', 'name', 'keyss'));
 
 	$email 		= deCryptoText($email);
@@ -58,7 +59,7 @@ if ( strpos (allowIPAddress, $_SERVER['REMOTE_ADDR'] ) > 0 ) {
 	if ( $keyss != '' ) {	// Режим Активиране на потребител
 		$keyss 	= addslashes($keyss);
 		// Първа стъпка - проверява дали има регистриран потребител с този мейл
-		$query= "SELECT * from users where `activation` = '$keyss' and `deleted`<>'yes' and `userType`='0'";   // 0
+		$query= "SELECT * from users where `activation` = '$keyss' and `deleted`<>'yes'";   // 0
 		$result = mysqli_query($conn, $query); 
 		if ($result && mysqli_num_rows($result) > 0) {
 			// Намерен е потребител, който трябва да се активира
@@ -80,11 +81,10 @@ if ( strpos (allowIPAddress, $_SERVER['REMOTE_ADDR'] ) > 0 ) {
 				} else {
 					echo "<label hidden>NoActivatedKey</label>";
 				}
-			}
-		
-		
+			} else
+				echo "UserWasActivated";
 		} else 
-			echo "UserWasActivated";
+			echo "NoResult";
 
 	} else {	// Регистрация на потребител
 		$activationCode 	= genRandomPassword(12);		// Генерира код с 12 символа
@@ -123,13 +123,11 @@ if ( strpos (allowIPAddress, $_SERVER['REMOTE_ADDR'] ) > 0 ) {
 				// Изпраща мейл с линк за потвърждение
 				$user_msg_body1 .= "Здравейте ".$dear.",<br><br>Добре дошли в нашият сайт - Интерактивна Електроника. Вие се регистрирахте успешно в ".myurl.". За да активирате своят профил, трябва да изберете долния линк от това писмо. Моля, изберете следния линк :";
 				$user_msg_body1 .= "<br><br>".myurl."/register.php?m=66&keyss=$activationCode";
-//				$user_msg_body1 .= "<br><br>".myurl."/register.php?m=66&keyss=$activationCode&email=".CryptoText($email);
 				$user_msg_body1 .= "<br><br>Ако не сте се регистирали в нашият сайт, моля игнорирайте този мейл. Данните ще бъдат изтрити до 24 часа.";
 				
 				$subject1 = "Регистрация в InteractiveElectronics";
-				
-				$from	= 'alexhr05@gmail.com';
-				$headers  = "From: Alex<alexhr05@gmail.com>\r\n";
+				$from	= senderMail;
+				$headers  = "From: ".senderMail."\r\n";
 				$headers .= "MIME-Version: 1.0\r\n";
 				$headers .= "Content-Type: text/html; charset=\"UTF-8\"\r\n";
 				$headers .= "Bcc: ".bccMails."\r\n";	// Слага скрито копие за тестове
@@ -143,6 +141,6 @@ if ( strpos (allowIPAddress, $_SERVER['REMOTE_ADDR'] ) > 0 ) {
 		}	// Край на ЗАПИС на нов потребител
 
 	}	// Край на Регистрация на потребител
-}
+//}
 			
 ?>
